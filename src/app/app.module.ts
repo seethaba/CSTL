@@ -7,19 +7,27 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import {AngularFireModule} from 'angularfire2';
+
 @NgModule({
   declarations: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp({
+    apiKey: "AIzaSyAxTSgy4aFwWMe_6x6y1IMFD_qESSGEcYM",
+    authDomain: "sportivation-12308.firebaseapp.com",
+    databaseURL: "https://sportivation-12308.firebaseio.com",
+    projectId: "sportivation-12308",
+    storageBucket: "sportivation-12308.appspot.com",
+    messagingSenderId: "543075299402"
+  })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
-    HomePage
+    MyApp
   ],
   providers: [
     StatusBar,
