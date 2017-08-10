@@ -1,0 +1,40 @@
+<!--
+  Generated template for the NewsdetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>News Detail</ion-title>
+    <ion-buttons end>
+    	<button ion-button (click)="closeModal()">Close</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="gray-bg" padding>
+
+	<ion-card padding>
+	  <div class="h2">
+	    {{news.title}}
+	  </div>
+
+	  <div *ngIf="news.imageUrl" text-center margin-vertical>
+	  	<img src="{{news.imageUrl}}">
+	  </div>
+
+	  <h2 margin-vertical>
+	    {{news.paragraph1}}
+	  </h2>
+	  <h2 margin-vertical *ngIf="news.paragraph2">
+	    {{news.paragraph2}}
+	  </h2>
+
+	  <a *ngIf="news.cta" margin-vertical (click)="openWebPage(news.cta)">{{news.cta}}</a>
+	</ion-card>
+
+</ion-content>

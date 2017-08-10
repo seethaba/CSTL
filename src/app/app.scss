@@ -14,3 +14,46 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.card-background-page .card-title {
+    position: absolute;
+    top: 36%;
+    font-size: 2em;
+    width: 100%;
+    font-weight: 700;
+    color: #fff;
+}
+
+.card-background-page ion-card {
+    position: relative;
+    text-align: center;
+}
+
+.card-background-page .card-subtitle {
+    font-size: 1em;
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    color: #fff;
+}
+
+.card-background-page img {
+	filter: brightness(40%);
+}
+
+.gray-bg {
+    background: #EEE;
+}
+
+.white-bg {
+    background: #FFF;
+}
+
+.font-500 {
+    font-weight: 600;
+}
+
+.h2 {
+    font-size: 1.2em;
+    font-weight: 400;
+}
