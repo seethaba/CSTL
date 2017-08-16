@@ -18,6 +18,9 @@ import { EditTeamPage } from "../pages/edit-team/edit-team";
 import { ShowprofilePage } from "../pages/showprofile/showprofile";
 import { NewsPage } from "../pages/news/news";
 import { NativePageTransitions } from '@ionic-native/native-page-transitions';
+import { Geolocation } from '@ionic-native/geolocation';
+import { HttpModule} from '@angular/http';
+import { RemoteServiceProvider } from '../providers/remote-service/remote-service';
 
 const cloudSettings: CloudSettings = {
   'core': {
@@ -52,7 +55,8 @@ firebase.initializeApp({
     AngularFireModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    CloudModule.forRoot(cloudSettings)
+    CloudModule.forRoot(cloudSettings),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -64,7 +68,9 @@ firebase.initializeApp({
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Facebook,
     InAppBrowser,
-    NativePageTransitions
+    Geolocation,
+    NativePageTransitions,
+    RemoteServiceProvider
   ]
 })
 export class AppModule {}

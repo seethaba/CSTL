@@ -1,0 +1,50 @@
+<!--
+  Generated template for the ChooseplayersPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton color="primary">
+    <ion-title>Team List: {{teamName}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="gray-bg">
+
+	<div col-12 clear margin-bottom>
+		<div text-center>
+			<button (click)="addMatchplayer()" ion-button color="danger" *ngIf=" ((MatchplayersRef$ | async)?.length < 5)">Add ({{5 - ((MatchplayersRef$ | async)?.length)}} left)</button>
+			<button (click)="returnToStartMatch()"  ion-button color="success" *ngIf="(MatchplayersRef$ | async)?.length == 5">Finish</button>
+		</div>
+	</div>
+
+	<ion-list class="white-bg">
+	  <ion-list-header>
+	    PLAYERS ON COURT
+	  </ion-list-header>
+	  <ng-container *ngFor="let matchplayer of MatchplayersRef$ | async">
+	  	<ion-item *ngIf="!matchplayer.reserve">
+	    	<h2>{{matchplayer.name}} {{matchplayer.captain ? "(C)" : ""}}</h2>
+	    	<ion-badge item-end color="secondary">{{matchplayer.jerseyNumber}}</ion-badge>
+	  	</ion-item>
+		</ng-container>
+	</ion-list>
+
+	<div margin-top>
+		<ion-list class="white-bg">
+		  <ion-list-header>
+		    RESERVES
+		  </ion-list-header>
+		  <ng-container *ngFor="let matchplayer of MatchplayersRef$ | async">
+		  	<ion-item *ngIf="matchplayer.reserve">
+		    	<h2>{{matchplayer.name}} {{matchplayer.captain ? "(C)" : ""}}</h2>
+		    	<ion-badge item-end color="secondary">{{matchplayer.jerseyNumber}}</ion-badge>
+		  	</ion-item>
+			</ng-container>
+		</ion-list>
+	</div>
+
+</ion-content>

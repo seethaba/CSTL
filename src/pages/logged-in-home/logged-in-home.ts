@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
+import {Match} from '../../models/match';
 
 /**
  * Generated class for the LoggedInHomePage page.
@@ -20,6 +21,7 @@ import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/na
 export class LoggedInHomePage {
 
   adminUser = false;
+  matchRef$: FirebaseListObservable<Match[]>
 
   constructor(private afDatabase: AngularFireDatabase, 
     private afAuth: AngularFireAuth, 
@@ -34,6 +36,7 @@ export class LoggedInHomePage {
       });
     }); 
 
+    this.matchRef$ = this.afDatabase.list('matches');
   }
 
   ionViewDidLoad() {
@@ -68,5 +71,10 @@ export class LoggedInHomePage {
 
   routeToPage(page) {
     this.navCtrl.push(page);
+  }
+
+  startNewMatch() {
+    var matchRef = this.matchRef$.push({"matchCreated": 1});
+    this.navCtrl.push("StartmatchPage", {matchId: matchRef.key});
   }
 }

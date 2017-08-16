@@ -1,0 +1,29 @@
+page-startmatch {
+.photo-container {
+		position: relative;	
+		background: #000;
+
+		img.photo-backdrop {
+			filter: brightness(30%);
+			margin-left: 40px;
+		}
+		ion-fab img {
+			z-index: 100;
+			border: 3px solid #9F9F9F;
+			margin: -80px 30px;
+			width:100px;
+			height:100px;
+		}
+
+		ion-fab.vs_logo img {
+			z-index: 100;
+			border: 3px solid #FFF;
+			border-radius: 100px;
+			margin: 10px 15px;
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	
+}

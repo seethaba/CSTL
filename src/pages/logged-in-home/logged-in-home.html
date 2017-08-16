@@ -41,7 +41,7 @@
           <div class="card-subtitle">Checkout live and past matches from CSTL</div>
         </ion-card>
 
-        <ion-card *ngIf="adminUser">
+        <ion-card *ngIf="adminUser" (click)="startNewMatch()">
           <img src="http://farm4.static.flickr.com/3597/3637898191_5539343f60.jpg"/>
           <div class="card-title">Score a Match</div>
           <div class="card-subtitle">Easily score and broadcast live scores of the matches</div>

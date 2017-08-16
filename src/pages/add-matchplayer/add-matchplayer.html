@@ -1,0 +1,47 @@
+<!--
+  Generated template for the AddMatchplayerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Add Player: {{teamName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="gray-bg">
+	<ion-item>
+		<ion-label stacked>Player Name</ion-label>
+		<ion-select required interface="popover" required [(ngModel)]="matchplayer.name">
+      		<ng-container *ngFor="let profile of profileRef$ | async">
+      			<!-- *ngIf="team.$key != match.team2Key" -->
+  				<ion-option *ngIf="(profileNames.indexOf(profile.displayName) < 0)" value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  			</ng-container>
+	    </ion-select>
+	</ion-item>
+
+	<ion-item>
+		<ion-label stacked>Jersey Number</ion-label>
+	    <ion-input required [(ngModel)]="matchplayer.jerseyNumber" type="number"></ion-input>
+  	</ion-item>
+
+	<ion-item>
+	  <ion-label>Captain?</ion-label>
+	  <ion-checkbox required [(ngModel)]="matchplayer.captain" checked="false"></ion-checkbox>
+	</ion-item>
+
+	<ion-item>
+	  <ion-label>Reserve?</ion-label>
+	  <ion-checkbox required [(ngModel)]="matchplayer.reserve" checked="false"></ion-checkbox>
+	</ion-item>
+
+	<div col-12 clear padding-vertical>
+		<div float-right>
+			<button (click)="addMatchplayer(matchplayer)" ion-button>Add Player</button>
+		</div>
+	</div>
+</ion-content>
