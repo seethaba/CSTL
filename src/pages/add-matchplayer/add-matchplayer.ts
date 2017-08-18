@@ -31,15 +31,15 @@ export class AddMatchplayerPage {
   	public navCtrl: NavController, 
   	public navParams: NavParams) {
   	this.profileRef$ = this.afDatabase.list('profile', {
-	  query: {
-	    orderByChild: "teamKey",
-	    equalTo: this.navParams.get('teamKey')
-	  }
+  	  query: {
+  	    orderByChild: "teamKey",
+  	    equalTo: this.navParams.get('teamKey')
+  	  }
   	});
   	
   	this.matchplayersRef$ = this.afDatabase.list(this.navParams.get('matchTeamUri'));
     
-    this.matchplayersRef$.take(1).subscribe(matchplayers => {
+    this.matchplayersRef$.subscribe(matchplayers => {
       this.profileNames = matchplayers.map(function(a) {return a.name;});
     })
     
@@ -48,8 +48,7 @@ export class AddMatchplayerPage {
 
   addMatchplayer(matchplayer: Matchplayers) {
   	this.matchplayersRef$.push(this.matchplayer);
-  	this.matchplayer = {} as Matchplayers;
-  	this.navCtrl.pop();
+    this.navCtrl.pop();
   }
 
 }

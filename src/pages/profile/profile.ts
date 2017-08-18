@@ -46,7 +46,11 @@ export class ProfilePage {
         .then(() => { 
           this.navCtrl.setRoot('LoggedInHomePage');
         }).catch((e) => {
-          alert(e.message);
+          // alert(e.message);
+          this.toast.create({
+            message: `There was an Error. Please try again.`,
+            duration: 7000
+          }).present();
         })
       })
     } else {

@@ -12,4 +12,6 @@ export interface Match {
 	chosen?: string;
 	status?: string;
 	matchCreated?: boolean;
+	profileKey: string;
+	currentSet: string;
 }

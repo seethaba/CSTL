@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController, LoadingController } from 'ionic-angular';
 import {  User } from "../../models/user";
 import { AngularFireAuth} from 'angularfire2/auth'; 
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 import { Profile } from "../../models/profile";
+import { Match } from "../../models/match";
 import * as firebase from 'firebase/app';
 import { Facebook } from "@ionic-native/facebook";
 
@@ -25,6 +26,8 @@ export class LoginPage {
 
   user = {} as User;
   profileRef$: FirebaseObjectObservable<Profile>;
+  matchRef$: FirebaseListObservable<Match[]>;
+  currentUserKey = "";
 
   constructor(private facebook: Facebook, 
     private afAuth: AngularFireAuth, 
@@ -32,14 +35,17 @@ export class LoginPage {
     private toast: ToastController,
   	public navCtrl: NavController, 
     public navParams: NavParams,
-    private modal: ModalController) {
+    private modal: ModalController,
+    private loader: LoadingController) {
+
+
   }
 
   ionViewDidLoad() {
     this.afAuth.authState.take(1).subscribe(data => {
       if(data)
       {
-        this.navCtrl.setRoot('LoggedInHomePage');
+         this.navCtrl.setRoot('LoggedInHomePage');
       }
       else {
         this.toast.create({
@@ -82,13 +88,16 @@ export class LoginPage {
             }).then(() => { 
               this.profileRef$.take(1).subscribe(profileData => {
                 if((profileData.role != 'Player' && profileData.city && profileData.aboutMe) || (profileData.role == 'Player' && profileData.position && profileData.city && profileData.aboutMe && profileData.teamKey)) {
-                  this.navCtrl.setRoot("LoggedInHomePage");  
+                  this.navCtrl.setRoot('LoggedInHomePage');
                 } else {
                   this.navCtrl.setRoot("ProfilePage");  
                 }  
               })
             }).catch((e) => {
-              alert(e.message);
+              this.toast.create({
+                message: `Login not successful. Please login to continue`,
+                duration: 3000
+              }).present(); 
             })
         }
       }).catch((e) => {
@@ -114,4 +123,5 @@ export class LoginPage {
     
     privacyModal.present();
   }
+
 }

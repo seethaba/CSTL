@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
@@ -21,18 +21,30 @@ import {Match} from '../../models/match';
 export class LoggedInHomePage {
 
   adminUser = false;
+  currentUserKey = ""
   matchRef$: FirebaseListObservable<Match[]>
+  pendingMatchesRef$: FirebaseListObservable<Match[]>
+
 
   constructor(private afDatabase: AngularFireDatabase, 
     private afAuth: AngularFireAuth, 
     private toast: ToastController,
   	public navCtrl: NavController, 
     public navParams: NavParams,
-    private nativePageTransitions: NativePageTransitions) {
+    private nativePageTransitions: NativePageTransitions,
+    private loader: LoadingController) {
     
     this.afAuth.authState.take(1).subscribe(data => {
       this.afDatabase.object(`profile/${data.uid}`).take(1).subscribe(profileData => {
         this.adminUser = profileData.admin;
+        this.currentUserKey = profileData.$key;
+
+        this.pendingMatchesRef$ = this.afDatabase.list('matches', {
+          query: {
+            orderByChild: "profileKey",
+            equalTo: profileData.$key
+          }
+        })
       });
     }); 
 
@@ -43,11 +55,7 @@ export class LoggedInHomePage {
     this.afAuth.authState.take(1).subscribe(data => {
     	if(data)
     	{
-        this.toast.create({
-	    		message: `${data.email}, Welcome to CSTL app`,
-	    		duration: 3000,
-	    		cssClass: "toast-success"
-	    	}).present();	
+        // Do Nothing
     	}
     	else {
 	    	this.navCtrl.push('LoginPage');
@@ -74,7 +82,24 @@ export class LoggedInHomePage {
   }
 
   startNewMatch() {
-    var matchRef = this.matchRef$.push({"matchCreated": 1});
-    this.navCtrl.push("StartmatchPage", {matchId: matchRef.key});
+    var matchRef = this.matchRef$.push({"profileKey": this.currentUserKey, 
+      "currentSet": "set1", 
+      "set1": {"number": 1},
+      "status": "Live",
+      "dateTime": new Date().toISOString()
+    });
+    this.navCtrl.push("StartmatchPage", {matchId: matchRef.key});  
+  }
+
+  openLiveMatch(pendingMatch: Match) {
+    this.navCtrl.push("ScorematchPage", {currentSetURL: `matches/${pendingMatch.$key}/${pendingMatch.currentSet}`, matchURL: `matches/${pendingMatch.$key}`});
+  } 
+
+  presentLoading() {
+    let loader = this.loader.create({
+      content: "Welcome, Please wait...",
+      duration: 3000
+    });
+    loader.present();
   }
 }

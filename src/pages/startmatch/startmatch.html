@@ -14,49 +14,35 @@
 
 
 <ion-content padding class="gray-bg">
-	<!-- <div class="photo-container">
-		  <img class="photo-backdrop" src="https://image.ibb.co/cFLAga/CSTL.png">
-		  <ion-fab bottom left class="team_image">
-	      	<img  src="https://image.ibb.co/cvOUpv/KU.png">
-		  </ion-fab>
-		  <ion-fab bottom center class="vs_logo">
-	      	<img  width="30" height="30" src="https://image.ibb.co/nMehHF/vs_logo.png">
-		  </ion-fab>
-		  <ion-fab bottom right="team_image">
-	      	<img  src="https://image.ibb.co/ntLLEv/FD.jpg">
-		  </ion-fab>
-	  </div> -->
-
-	 	<!-- Referee1 Name
-		Referee2 Name
-		Regu/Doubles
-		Pool
-		Match Stage
-		Time
-		Location
-		Toss Won By
-		Status -->
-
 
 	<ion-item>
-		<ion-label stacked>Team 1</ion-label>
-		<ion-select interface="popover" required [(ngModel)]="match.team1Key">
-      		<ng-container *ngFor="let team of TeamRef$ | async">
-  				<ion-option (ionSelect)="changeTeam('team1', team.$key, team.name)" *ngIf="team.$key != match.team2Key" value="{{team.$key}}">{{team.name}}</ion-option>
-  			</ng-container>
+		<ion-label stacked>Event</ion-label>
+		<ion-select interface="popover"   required [(ngModel)]="match.matchType">
+	      <ion-option *ngFor="let event of events" value="{{event}}">{{event}}</ion-option>
 	    </ion-select>
 	</ion-item>
 
-	<ion-item>
-		<ion-label stacked>Team 2</ion-label>
-		<ion-select interface="popover"  required [(ngModel)]="match.team2Key">
-			<ng-container *ngFor="let team of TeamRef$ | async">
-  				<ion-option (ionSelect)="changeTeam('team2', team.$key, team.name)"  *ngIf="team.$key != match.team1Key" value="{{team.$key}}">{{team.name}}</ion-option>
-  			</ng-container>
-	    </ion-select>
-	</ion-item>
+	<div *ngIf="match.matchType">
+		<ion-item>
+			<ion-label stacked>Team 1</ion-label>
+			<ion-select interface="popover" required [(ngModel)]="match.team1Key">
+	      		<ng-container *ngFor="let team of TeamRef$ | async">
+	  				<ion-option (ionSelect)="changeTeam('team1', team.$key, team.name, match.matchType)" *ngIf="team.$key != match.team2Key" value="{{team.$key}}">{{team.name}}</ion-option>
+	  			</ng-container>
+		    </ion-select>
+		</ion-item>
 
-	<div *ngIf="match.team1Key && match.team2Key">
+		<ion-item>
+			<ion-label stacked>Team 2</ion-label>
+			<ion-select interface="popover"  required [(ngModel)]="match.team2Key">
+				<ng-container *ngFor="let team of TeamRef$ | async">
+	  				<ion-option (ionSelect)="changeTeam('team2', team.$key, team.name, match.matchType)"  *ngIf="team.$key != match.team1Key" value="{{team.$key}}">{{team.name}}</ion-option>
+	  			</ng-container>
+		    </ion-select>
+		</ion-item>
+	</div>
+
+	<div *ngIf="match.matchType && match.team1Key && match.team2Key">
 	  	<ion-item>
 			<ion-label stacked>Main Referee Name</ion-label>
 			<ion-input required type="text" [(ngModel)]="match.referee1Name"></ion-input>
@@ -65,13 +51,6 @@
 		<ion-item>
 			<ion-label stacked>Assistant Referee Name</ion-label>
 			<ion-input required type="text" [(ngModel)]="match.referee2Name"></ion-input>
-		</ion-item>
-
-		<ion-item>
-			<ion-label stacked>Event</ion-label>
-			<ion-select interface="popover"   required [(ngModel)]="match.matchType">
-		      <ion-option *ngFor="let event of events" value="{{event}}">{{event}}</ion-option>
-		    </ion-select>
 		</ion-item>
 
 		<ion-item>
@@ -109,7 +88,7 @@
 
 		<div col-12 clear padding-vertical>
 			<div float-right>
-				<button ion-button (click)="startMatch()">Start Match</button>
+				<button ion-button (click)="startMatch(match)">Start Match</button>
 			</div>
 		</div>
 	</div>

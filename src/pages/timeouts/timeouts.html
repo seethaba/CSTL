@@ -1,0 +1,55 @@
+<!--
+  Generated template for the SubstitutionsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{currentSet[0].toUpperCase() + currentSet.slice(1)}}: Timeouts</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="gray-bg">
+		<ion-grid>
+	    	<ion-row>
+		  	<ion-col col-6 text-center>
+		  		<ion-card class="white-bg">
+					  <div margin-top padding-bottom>
+					    {{team1.name.toUpperCase()}} ({{((team1timeoutsRef$ | async)?.length)}})
+					  </div>
+
+					  <ion-list text-center>
+						  <ion-item *ngFor="let timeout of team1timeoutsRef$ | async">
+						    <ion-badge color="danger">{{timeout.point}}</ion-badge>
+						  </ion-item>
+						</ion-list>
+
+					</ion-card>
+					<div text-center>
+						<button block ion-button (click)="createTimeout('team1', timeout1)">Timeout</button>
+					</div>
+		  		
+		  	</ion-col>
+	  	
+		  	<ion-col col-6 text-center>
+		  		<ion-card class="white-bg">
+					  <div margin-top padding-bottom>
+					    {{team2.name.toUpperCase()}} ({{((team2timeoutsRef$ | async)?.length)}})
+					  </div>
+					  <ion-list  text-center>
+						  <ion-item *ngFor="let timeout of team2timeoutsRef$ | async">
+						    <ion-badge color="danger">{{timeout.point}}</ion-badge>
+						  </ion-item>
+						</ion-list>
+					</ion-card>
+					<div text-center>
+						<button block ion-button (click)="createTimeout('team2', timeout2)">Timeout</button>
+					</div>
+		  	</ion-col>
+	  	</ion-row>
+  	</ion-grid>
+</ion-content>

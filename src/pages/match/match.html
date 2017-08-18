@@ -14,12 +14,12 @@
 
 
 <ion-content class="gray-bg" padding>
-	<ion-card>
+	<ion-card *ngFor="let match of (matchesRef$ | async)?.slice().reverse()">
 	  <ion-card-header>
-	    Coming Soon!
+	    <ion-badge color="{{(match.status == 'Live') ? 'danger' : 'primary'}}">{{match.status}}</ion-badge><div> {{match.team1Name || "Team 1"}} vs {{match.team2Name || "Team 2"}} </div>
 	  </ion-card-header>
 	  <ion-card-content>
-	    Check this section at a later point in time to catchup on matches from CSTL.
+	    <button (click)="routeToScorematchPage(match)" ion-button small color='dark'>View Scores</button>
 	  </ion-card-content>
 	</ion-card>
 </ion-content>

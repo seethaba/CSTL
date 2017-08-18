@@ -16,8 +16,8 @@
 
 	<div col-12 clear margin-bottom>
 		<div text-center>
-			<button (click)="addMatchplayer()" ion-button color="danger" *ngIf=" ((MatchplayersRef$ | async)?.length < 5)">Add ({{5 - ((MatchplayersRef$ | async)?.length)}} left)</button>
-			<button (click)="returnToStartMatch()"  ion-button color="success" *ngIf="(MatchplayersRef$ | async)?.length == 5">Finish</button>
+			<button (click)="addMatchplayer()" ion-button color="danger" *ngIf=" ((MatchplayersRef$ | async)?.length < playerCount)">Add ({{playerCount - ((MatchplayersRef$ | async)?.length)}} left)</button>
+			<button (click)="returnToStartMatch()"  ion-button color="success" *ngIf="(MatchplayersRef$ | async)?.length > 2">Finish</button>
 		</div>
 	</div>
 
@@ -26,7 +26,7 @@
 	    PLAYERS ON COURT
 	  </ion-list-header>
 	  <ng-container *ngFor="let matchplayer of MatchplayersRef$ | async">
-	  	<ion-item *ngIf="!matchplayer.reserve">
+	  	<ion-item (click)="selectMatchplayer(matchplayer)" *ngIf="!matchplayer.reserve">
 	    	<h2>{{matchplayer.name}} {{matchplayer.captain ? "(C)" : ""}}</h2>
 	    	<ion-badge item-end color="secondary">{{matchplayer.jerseyNumber}}</ion-badge>
 	  	</ion-item>
@@ -39,7 +39,7 @@
 		    RESERVES
 		  </ion-list-header>
 		  <ng-container *ngFor="let matchplayer of MatchplayersRef$ | async">
-		  	<ion-item *ngIf="matchplayer.reserve">
+		  	<ion-item (click)="selectMatchplayer(matchplayer)" *ngIf="matchplayer.reserve">
 		    	<h2>{{matchplayer.name}} {{matchplayer.captain ? "(C)" : ""}}</h2>
 		    	<ion-badge item-end color="secondary">{{matchplayer.jerseyNumber}}</ion-badge>
 		  	</ion-item>

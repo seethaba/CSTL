@@ -1,0 +1,130 @@
+<!--
+  Generated template for the ScorematchPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar hideBackButton *ngIf="!(srcparam == 'fromMatches')" color="primary">
+    <ion-title>{{abbrTeam1}} Vs {{abbrTeam2}}, {{match.matchType}}, {{match.pool}} </ion-title>
+  </ion-navbar>
+
+  <ion-navbar color="primary"  *ngIf="srcparam == 'fromMatches'">
+    <ion-title>{{abbrTeam1}} Vs {{abbrTeam2}}, {{match.matchType}}, {{match.pool}} </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="gray-bg">
+	  
+	<div class="white-bg" text-center padding-vertical>
+	    <img width=70 height=47 src="https://image.ibb.co/cFLAga/CSTL.png">
+	    <p>Toss won by {{abbrToss}}, chosen {{match.chosen}}</p>
+	</div>
+
+	<ion-card margin-top>
+		<ion-list>
+		  <ion-item>
+		    <ion-avatar item-start>
+		      <img src="{{team1.logoUrl}}">
+		    </ion-avatar>
+		    <ion-grid class="white-bg">
+			    <ion-row>
+				  	<ion-col  no-margin no-padding col-4 text-center middle>
+				  		<h1 middle *ngIf="!isSetCompleted('set1') || setWonBy('set1') != 'team1'">{{team1set1points}}</h1>
+				  		<button ion-button color="dark" *ngIf="isSetCompleted('set1') && (setWonBy('set1') == 'team1')">{{team1set1points}}</button>
+			  		</ion-col>
+				  	<ion-col  no-margin no-padding col-4 text-center middle>
+				  		<h1 middle *ngIf="!isSetCompleted('set2') || setWonBy('set2') != 'team1'">{{team1set2points}}</h1>
+				  		<button ion-button color="dark" *ngIf="isSetCompleted('set2') && (setWonBy('set2') == 'team1')">{{team1set2points}}</button>
+				  	</ion-col>
+				  	<ion-col  no-margin no-padding col-4 text-center middle>
+				  		<h1 middle *ngIf="!isSetCompleted('set3') || setWonBy('set3') != 'team1'">{{team1set3points}}</h1>
+				  		<button ion-button color="dark" *ngIf="isSetCompleted('set3') && (setWonBy('set3') == 'team1')">{{team1set3points}}</button>
+			  		</ion-col>
+			  	</ion-row>
+		  	</ion-grid>
+		  </ion-item>
+		  <ion-item>
+		    <ion-avatar item-start>
+		      <img src="{{team2.logoUrl}}">
+		    </ion-avatar>
+		    <ion-grid class="white-bg">
+			    <ion-row>
+				  	<ion-col no-margin no-padding col-4 text-center middle>
+				  		<h1 middle *ngIf="!isSetCompleted('set1') || setWonBy('set1') == 'team1'">{{team2set1points}}</h1>
+				  		<button ion-button color="dark" *ngIf="isSetCompleted('set1') && (setWonBy('set1') != 'team1')">{{team2set1points}}</button>
+			  		</ion-col>
+				  	<ion-col no-margin no-padding col-4 text-center middle>
+				  		<h1 middle *ngIf="!isSetCompleted('set2') || setWonBy('set2') == 'team1'">{{team2set2points}}</h1>
+				  		<button ion-button color="dark" *ngIf="isSetCompleted('set3') && (setWonBy('set2') != 'team1')">{{team2set2points}}</button>
+				  	</ion-col>
+				  	<ion-col  no-margin no-padding col-4 text-center middle>
+				  		<h1 middle *ngIf="!isSetCompleted('set3') || setWonBy('set3') == 'team1'">{{team2set3points}}</h1>
+				  		<button ion-button color="dark" *ngIf="isSetCompleted('set3') && (setWonBy('set3') != 'team1')">{{team2set3points}}</button>
+			  		</ion-col>
+			  	</ion-row>
+		  	</ion-grid>
+		  </ion-item>
+		</ion-list>
+	</ion-card>
+
+	<ion-card margin-top *ngIf="!(srcparam == 'fromMatches')" >
+		<ion-grid class="white-bg">
+	    <ion-row>
+		  	<ion-col col-6 text-center>
+		  		<ion-list class="white-bg">
+					  <div margin-top>
+					    {{upprTeam1}}
+					  </div>
+					  <ion-item text-center>
+					  	<button ion-button large color="danger">-1</button>
+					  	<button *ngIf="!isSetCompleted(match.currentSet)" (click)="addPoint('t1','t2')" ion-button large color="secondary">+1</button>
+					  </ion-item>
+					</ion-list>
+		  		
+		  	</ion-col>
+	  	
+		  	<ion-col col-6 text-center>
+		  		<ion-list class="white-bg">
+					  <div margin-top>
+					    {{upprTeam2}}
+					  </div>
+					  <ion-item text-center>
+					  	<button ion-button large color="danger">-1</button>
+					  	<button *ngIf="!isSetCompleted(match.currentSet)" (click)="addPoint('t2','t1')"  ion-button large color="secondary">+1</button>
+					  </ion-item>
+					</ion-list>
+		  	</ion-col>
+	  	</ion-row>
+  	</ion-grid>
+	</ion-card>
+
+	<div text-center *ngIf="!(srcparam == 'fromMatches')" >
+  		<button (click)="routeToSubsPage()" *ngIf="!isSetCompleted(match.currentSet)" ion-button color="menu-o">
+	    	<div>
+	  			 <p ion-text color="white"><ion-icon color="white" name="contact"></ion-icon> Substitution</p>
+	  		 </div>
+  		 </button>
+		
+  		<button (click)="routeToTimeoutsPage()"  *ngIf="!isSetCompleted(match.currentSet)" ion-button color="menu-o">
+		    <div>
+	  			<p ion-text color="white"><ion-icon color="white" name="time"></ion-icon> Timeout</p>
+  			</div>
+			</button>
+  	
+  		<button (click)="completeSet(match.currentSet)" *ngIf="isSetCompleted(match.currentSet)" ion-button  color="menu-o">
+		    <div>
+		  		 <p ion-text color="white"><ion-icon color="white" name="time"></ion-icon> Complete Set</p>
+	  		 </div>
+		 	</button>
+	 </div>
+  		
+</ion-content>
+
+
+
+
+
+

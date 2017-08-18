@@ -1,0 +1,72 @@
+<!--
+  Generated template for the AddpointPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Add {{teamName}} Point</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div text-center margin-bottom>
+		<img height=100 width=100 src="{{logoUrl}}">
+	</div>
+
+	<ion-item>
+		<ion-label stacked>How was this point won?</ion-label>
+		<ion-select  interface="popover" required [(ngModel)]="setpoint.wonMethod">
+      		<ng-container *ngFor="let method of wonMethod">
+  				<ion-option value="{{method}}">{{method}}</ion-option>
+  			</ng-container>
+	    </ion-select>
+	</ion-item>
+
+	<ion-item *ngIf="setpoint.wonMethod != 'Opponent Error'">
+		<ion-label stacked>Won by</ion-label>
+		<ion-select  interface="popover" [(ngModel)]="setpoint.wonBy">
+      		<ng-container *ngFor="let profile of winningProfileRef$ | async">
+  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  			</ng-container>
+	    </ion-select>
+	</ion-item>
+
+	<ion-item *ngIf="setpoint.wonMethod == 'Strike' || setpoint.wonMethod == 'Drop'">
+		<ion-label stacked>Assisted by</ion-label>
+		<ion-select  interface="popover" [(ngModel)]="setpoint.assistBy">
+      		<ng-container *ngFor="let profile of winningProfileRef$ | async">
+  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  			</ng-container>
+	    </ion-select>
+	</ion-item>
+
+	<ion-item  *ngIf="setpoint.wonMethod == 'Opponent Error' || setpoint.wonMethod == 'Placement' ">
+		<ion-label stacked>What was the Error?</ion-label>
+		<ion-select  interface="popover" [(ngModel)]="setpoint.errorMethod">
+      		<ng-container *ngFor="let method of errorMethod">
+  				<ion-option value="{{method}}">{{method}}</ion-option>
+  			</ng-container>
+	    </ion-select>
+	</ion-item>
+
+	<ion-item  *ngIf="setpoint.wonMethod == 'Opponent Error' || setpoint.wonMethod == 'Placement' ">
+		<ion-label stacked>Error by</ion-label>
+		<ion-select  interface="popover" [(ngModel)]="setpoint.errorBy">
+      		<ng-container *ngFor="let profile of losingProfileRef$ | async">
+  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  			</ng-container>
+	    </ion-select>
+	</ion-item>
+
+	<div col-12 clear padding-vertical>
+		<div float-right>
+			<button ion-button (click)="createPoint(setpoint)">Add Point</button>
+		</div>
+	</div>
+
+</ion-content>

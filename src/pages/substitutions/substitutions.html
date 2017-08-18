@@ -1,0 +1,97 @@
+<!--
+  Generated template for the SubstitutionsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>{{currentSet[0].toUpperCase() + currentSet.slice(1)}}: Substitutions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="gray-bg">
+		<ion-grid>
+	    	<ion-row>
+		  	<ion-col col-6 text-center>
+		  		<ion-card class="white-bg">
+					  <div margin-top>
+					    {{team1.name.toUpperCase()}} ({{((team1subsRef$ | async)?.length)}})
+					  </div>
+
+					  <ion-list text-center>
+						  <ion-item *ngFor="let sub of team1subsRef$ | async">
+						    <p>{{sub.point}}</p>
+						    <div>
+						    	<ion-badge color="primary">IN: {{sub.playerIn}}</ion-badge>
+						    	</div><div>
+						    <ion-badge color="danger">OUT: {{sub.playerOut}}</ion-badge></div>
+						  </ion-item>
+						</ion-list>
+
+					  <ion-item>
+							<ion-label stacked>Player Out</ion-label>
+							<ion-select  interface="popover" [(ngModel)]="substitution1.playerOut">
+					      		<ng-container *ngFor="let profile of team1ProfileRef$ | async">
+					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  			</ng-container>
+						    </ion-select>
+						</ion-item>
+
+						<ion-item>
+							<ion-label stacked>Player In</ion-label>
+							<ion-select  interface="popover" [(ngModel)]="substitution1.playerIn">
+					      		<ng-container *ngFor="let profile of team1ProfileRef$ | async">
+					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  			</ng-container>
+						    </ion-select>
+						</ion-item>
+					</ion-card>
+					<div text-center *ngIf="substitution1.playerOut && substitution1.playerIn">
+						<button block ion-button (click)="createSub('team1', substitution1)">Make Sub</button>
+					</div>
+		  		
+		  	</ion-col>
+	  	
+		  	<ion-col col-6 text-center>
+		  		<ion-card class="white-bg">
+					  <div margin-top>
+					    {{team2.name.toUpperCase()}} ({{((team2subsRef$ | async)?.length)}})
+					  </div>
+					  <ion-list  text-center>
+						  <ion-item *ngFor="let sub of team2subsRef$ | async">
+						    <p>{{sub.point}}</p>
+						    <div>
+						    	<ion-badge color="primary">IN: {{sub.playerIn}}</ion-badge>
+						    	</div><div>
+						    <ion-badge color="danger">OUT: {{sub.playerOut}}</ion-badge></div>
+						  </ion-item>
+						</ion-list>
+					  <ion-item>
+							<ion-label stacked>Player Out</ion-label>
+							<ion-select  interface="popover" [(ngModel)]="substitution2.playerOut">
+					      		<ng-container *ngFor="let profile of team2ProfileRef$ | async">
+					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  			</ng-container>
+						    </ion-select>
+						</ion-item>
+
+						<ion-item>
+							<ion-label stacked>Player In</ion-label>
+							<ion-select  interface="popover" [(ngModel)]="substitution2.playerIn">
+					      		<ng-container *ngFor="let profile of team2ProfileRef$ | async">
+					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  			</ng-container>
+						    </ion-select>
+						</ion-item>
+					</ion-card>
+					<div text-center *ngIf="substitution2.playerOut && substitution2.playerIn">
+						<button block ion-button (click)="createSub('team2', substitution2)">Make Sub</button>
+					</div>
+		  	</ion-col>
+	  	</ion-row>
+  	</ion-grid>
+</ion-content>

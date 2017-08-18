@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Profile } from "../../models/profile";
 import { Team } from "../../models/team";
 import { Match } from "../../models/match";
@@ -9,6 +10,7 @@ import {Http} from '@angular/http';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { Subscription } from "rxjs/Subscription";
 
 /**
  * Generated class for the StartmatchPage page.
@@ -24,8 +26,10 @@ import 'rxjs/add/operator/catch';
 })
 export class StartmatchPage {
 
-  TeamRef$: FirebaseListObservable<Team[]>
-  profileRef$: FirebaseListObservable<Profile[]>
+  TeamRef$: FirebaseListObservable<Team[]>;
+  profileRef$: FirebaseListObservable<Profile[]>;
+  matchRef$: FirebaseObjectObservable<Match>;
+  MatchSubscription: Subscription;
   profile = {} as Profile;
   match = {} as Match;
   pool = [];
@@ -33,7 +37,8 @@ export class StartmatchPage {
   tossChoices = [];
   matchId = "";
 
-  constructor(private afDatabase: AngularFireDatabase, 
+  constructor(private afDatabase: AngularFireDatabase,
+    private afAuth: AngularFireAuth, 
   	public navCtrl: NavController, 
   	public navParams: NavParams,
   	private geoLocation: Geolocation,
@@ -52,23 +57,34 @@ export class StartmatchPage {
 		}).catch((error) => {
 		  this.match.location = "NICM, Chennai";
 		});
-		this.pool = ["League (Pool A)", "League (Pool B)", "Quarter-Final", "Semi-Final", "Hardline (3rd - 4th Pos)", "Final (1st - 2nd Pos)", "Plate-Semi-Final", "Plate-Hardline (7th - 8th Pos)", "Plate-Final (5th - 6th Pos)"];
+		this.pool = ["League (Pool A)", "League (Pool B)", "Quarter-Final", "Semi-Final", "Hardline", "Final", "Plate-Semi-Final", "Plate-Hardline", "Plate-Final"];
 		this.events = ["Regu", "Doubles"];
-		this.tossChoices = ["side", "service"];
-		this.match.status = "Live";
-		this.match.dateTime = new Date().toISOString();
+		this.tossChoices = ["Side", "Service"];
+		
+
+    this.matchRef$ = this.afDatabase.object(`matches/${this.matchId}`);
+    this.MatchSubscription = this.matchRef$.subscribe(match => this.match = match);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad StartmatchPage');
+  startMatch(match) {
+    this.matchRef$.update(match);
+    
+    this.afDatabase.object(`team/${match.team1Key}`).subscribe(team1 => {
+      this.matchRef$.update({"team1Name": team1.name});
+    })
+    this.afDatabase.object(`team/${match.team2Key}`).subscribe(team2 => {
+      this.matchRef$.update({"team2Name": team2.name});
+    })
+
+    this.navCtrl.push("ScorematchPage", {currentSetURL: `matches/${match.$key}/set1`, matchURL: `matches/${match.$key}`});
   }
 
-  startMatch() {
-
+  ionViewWillLeave() {
+    this.MatchSubscription.unsubscribe();
   }
 
-  changeTeam(team, teamKey, teamName) {
-  	this.navCtrl.push('ChooseplayersPage', {teamUri: `matches/${this.matchId}/${team}`, teamKey: teamKey, teamName: teamName});
+  changeTeam(team, teamKey, teamName, event) {
+  	this.navCtrl.push('ChooseplayersPage', {teamUri: `matches/${this.matchId}/${team}`, teamKey: teamKey, teamName: teamName, eventType: event});
   }
 
 }
