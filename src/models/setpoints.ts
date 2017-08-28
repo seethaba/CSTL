@@ -4,4 +4,5 @@ export interface Setpoints {
 	assistBy: string;
 	errorMethod: string;
 	errorBy: string;
+	$key?: string;
 }

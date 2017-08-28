@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { Profile } from "../../models/profile";
-import { Team } from "../../models/team";
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Match } from "../../models/match";
-import { Setpoints } from "../../models/setpoints";
 
 /**
  * Generated class for the MatchPage page.
@@ -17,12 +14,11 @@ import { Setpoints } from "../../models/setpoints";
 @IonicPage()
 @Component({
   selector: 'page-match',
-  templateUrl: 'match.html',
+  templateUrl: 'match.html'
 })
 export class MatchPage {
 
   matchesRef$: FirebaseListObservable<Match[]>
-  matchRef$: FirebaseObjectObservable<Match>
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -40,7 +36,18 @@ export class MatchPage {
     this.nativePageTransitions.flip(options);
   }
 
+  getAbbr(name) {
+    let data = name.split(' '), output = "";
+
+    for ( var i = 0; i < data.length; i++) {
+        output += data[i].substring(0,1);
+    }
+
+    return output;
+  }
+
+
   routeToScorematchPage(match) {
-    this.navCtrl.push("ScorematchPage", {currentSetURL: `matches/${match.$key}/set1`, matchURL: `matches/${match.$key}`, 'src': 'fromMatches'});
+    this.navCtrl.push("ScorematchPage", {matchURL: `matches/${match.$key}`, 'src': 'fromMatches'});
   }
 }

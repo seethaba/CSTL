@@ -22,6 +22,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { HttpModule} from '@angular/http';
 import { RemoteServiceProvider } from '../providers/remote-service/remote-service';
 
+
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '98729c12'

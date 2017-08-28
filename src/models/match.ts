@@ -2,6 +2,8 @@ export interface Match {
 	$key?: string;
 	team1Key?: string;
 	team2Key?: string;
+	team1Name?: string;
+	team2Name?: string;
 	referee1Name?: string;
 	referee2Name?: string;
 	matchType?: string;

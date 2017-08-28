@@ -13,13 +13,17 @@
 </ion-header>
 
 
-<ion-content class="gray-bg" padding>
+<ion-content class="gray-bg">
 	<ion-card *ngFor="let match of (matchesRef$ | async)?.slice().reverse()">
 	  <ion-card-header>
-	    <ion-badge color="{{(match.status == 'Live') ? 'danger' : 'primary'}}">{{match.status}}</ion-badge><div margin-top> {{match.team1Name || "Team 1"}} vs {{match.team2Name || "Team 2"}} </div>
+	    <ion-badge text-capitalize color="{{(match.status == 'Live') ? 'danger' : 'primary'}}">{{match.status}}</ion-badge><h1 margin-top class="font-500"><b> {{getAbbr(match.team1Name) || "Team 1"}} vs {{getAbbr(match.team2Name) || "Team 2"}}</b></h1><p> {{match.matchType}}, {{match.pool}} </p>
+
+	    <p *ngIf="match.wonBy" ion-text color="secondary">Won by <b>{{match.wonBy}}, {{match.setCount}}</b> </p>
+
 	  </ion-card-header>
 	  <ion-card-content>
-	    <button (click)="routeToScorematchPage(match)" ion-button color='dark'>View Scores</button>
+	    <button no-padding float-left clear (click)="routeToScorematchPage(match)" icon-start ion-button><ion-icon name="flag"></ion-icon> Score</button>
+	    <button no-padding float-right clear (click)="routeToScorematchPage(match)" icon-start ion-button><ion-icon name="list"></ion-icon> Commentary</button>
 	  </ion-card-content>
 	</ion-card>
 </ion-content>

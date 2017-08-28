@@ -46,7 +46,7 @@ export class SubstitutionsPage {
   	this.team1ProfileRef$ = this.afDatabase.list('profile', {
   	  query: {
   	    orderByChild: "teamKey",
-  	    equalTo: this.team2.$key
+  	    equalTo: this.team1.$key
   	  }
   	})
 
@@ -54,7 +54,7 @@ export class SubstitutionsPage {
   	this.team2ProfileRef$ = this.afDatabase.list('profile', {
   	  query: {
   	    orderByChild: "teamKey",
-  	    equalTo: this.team1.$key
+  	    equalTo: this.team2.$key
   	  }
   	})
 

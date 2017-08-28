@@ -24,11 +24,11 @@
 </ion-header>
 
 
-<ion-content class="gray-bg" padding>
+<ion-content class="gray-bg">
 	<div [ngSwitch]="newsfeed">
 	  <ion-list *ngSwitchCase="'cstlnews'">
 
-	  	<ion-card margin-vertical *ngFor="let news of NewsRef$ | async">
+	  	<ion-card *ngFor="let news of NewsRef$ | async">
 		  
 		  	<ion-card-content>
 		    	<div class="font-500" color="dark" ion-text>
@@ -51,7 +51,7 @@
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'gamevideos'">
-	    <ion-card margin-vertical *ngFor="let video of VideosRef$ | async">
+	    <ion-card *ngFor="let video of VideosRef$ | async">
 		  
 		  	<ion-card-content>
 		    	<div class="font-500" color="dark" ion-text>
