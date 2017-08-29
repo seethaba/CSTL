@@ -47,7 +47,7 @@ export class MatchPage {
   }
 
 
-  routeToScorematchPage(match) {
-    this.navCtrl.push("ScorematchPage", {matchURL: `matches/${match.$key}`, 'src': 'fromMatches'});
+  routeToScorematchPage(match, page) {
+    this.navCtrl.push(page, {matchURL: `matches/${match.$key}`, 'src': 'fromMatches'});
   }
 }

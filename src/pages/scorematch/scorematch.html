@@ -120,17 +120,6 @@
 	  		 </div>
 		 	</button>
 	 </div>
-
-	 <div>
-		<ion-list>
-			<ion-item  *ngFor="let setpoint of matchService.set1points">
-		    <div><span class="font-500">{{setpoint.point}},</span>
-		    <span> {{setpoint.team}} point</span>
-		    <div *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{setpoint.wonBy}} <span> & assisted by {{setpoint.assistBy}}</span>;</div>
-		    <div *ngIf="setpoint.errorMethod">{{setpoint.errorMethod}} by {{setpoint.errorBy}}</div></div>
-		  </ion-item>
-		</ion-list>
-	 </div>
   		
 </ion-content>
 
