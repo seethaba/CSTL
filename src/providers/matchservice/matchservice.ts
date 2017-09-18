@@ -100,64 +100,32 @@ export class Matchservice {
     this.team2set3pointsRef$ = this.afDatabase.list(`${matchUrl}/set3/team2/points`);
 
     this.team1set1pointsRef$.subscribe(setpoints => {
-      let setpointsmap = setpoints.map(function(a) {
-        return {
-          "team": team1, 
-          "wonBy": a.wonBy,
-          "wonMethod": a.wonMethod,
-          "assistBy": a.assistBy,
-          "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
-          "$key": a.$key
-        }
+      let setpointsmap = setpoints.map(a => {
+        return this.getSetPointsHash(team1, a);
       });
       this.set1points = this.set1points.concat(setpointsmap);
       this.team1set1points = setpointsmap.length;
     })
 
     this.team1set2pointsRef$.subscribe(setpoints => {
-      let setpointsmap = setpoints.map(function(a) {
-        return {
-          "team": team1, 
-          "wonBy": a.wonBy,
-          "wonMethod": a.wonMethod,
-          "assistBy": a.assistBy,
-          "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
-          "$key": a.$key
-        }
+      let setpointsmap = setpoints.map(a => {
+        return this.getSetPointsHash(team1, a);
       });
       this.set2points = this.set2points.concat(setpointsmap);
       this.team1set2points = setpointsmap.length;
     })
 
     this.team1set3pointsRef$.subscribe(setpoints => {
-      let setpointsmap = setpoints.map(function(a) {
-        return {
-          "team": team1, 
-          "wonBy": a.wonBy,
-          "wonMethod": a.wonMethod,
-          "assistBy": a.assistBy,
-          "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
-          "$key": a.$key
-        }
+      let setpointsmap = setpoints.map(a => {
+        return this.getSetPointsHash(team1, a);
       });
       this.set3points = this.set3points.concat(setpointsmap);
       this.team1set3points = setpointsmap.length;
     })
 
     this.team2set1pointsRef$.subscribe(setpoints => {
-      let setpointsmap = setpoints.map(function(a) {
-        return {
-          "team": team2, 
-          "wonBy": a.wonBy,
-          "wonMethod": a.wonMethod,
-          "assistBy": a.assistBy,
-          "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
-          "$key": a.$key
-        }
+      let setpointsmap = setpoints.map(a => {
+        return this.getSetPointsHash(team2, a);
       });
       this.set1points = this.set1points.concat(setpointsmap);
       this.team2set1points = setpointsmap.length;
@@ -165,29 +133,23 @@ export class Matchservice {
       let team1point = 0, team2point = 0;
       this.set1points = this.set1points.map(function(a) {
         return {
-          "point": `${((a.team == team1) ? ++team1point : team1point)} - ${((a.team == team2) ? ++team2point : team2point)}`,
+          "team1point": `${((a.team == team1) ? ++team1point : team1point)}`,
+          "team2point": `${((a.team == team2) ? ++team2point : team2point)}`,
+          "teamLogo": `${((a.team == team2) ? team2.logoUrl : team1.logoUrl)}`,
           "team": a.team, 
           "wonBy": a.wonBy,
           "wonMethod": a.wonMethod,
           "assistBy": a.assistBy,
           "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
+          "errorMethod": a.errorMethod == 'Other' ? 'Service Error' : (a.errorMethod == 'Placement Error' && a.wonMethod == 'Placement' ? 'Receiving Error' : a.errorMethod),
           "$key": a.$key
         }
       })
     })
 
     this.team2set2pointsRef$.subscribe(setpoints => {
-      let setpointsmap = setpoints.map(function(a) {
-        return {
-          "team": team2, 
-          "wonBy": a.wonBy,
-          "wonMethod": a.wonMethod,
-          "assistBy": a.assistBy,
-          "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
-          "$key": a.$key
-        }
+      let setpointsmap = setpoints.map(a => {
+        return this.getSetPointsHash(team2, a);
       });
       this.set2points = this.set2points.concat(setpointsmap);
       this.team2set2points = setpointsmap.length;
@@ -195,60 +157,69 @@ export class Matchservice {
       let team1point = 0, team2point = 0;
       this.set2points = this.set2points.map(function(a) {
         return {
-          "point": `${((a.team == team1) ? ++team1point : team1point)} - ${((a.team == team2) ? ++team2point : team2point)}`,
+          "team1point": `${((a.team == team1) ? ++team1point : team1point)}`,
+          "team2point": `${((a.team == team2) ? ++team2point : team2point)}`,
+          "teamLogo": `${((a.team == team2) ? team2.logoUrl : team1.logoUrl)}`,
           "team": a.team, 
           "wonBy": a.wonBy,
           "wonMethod": a.wonMethod,
           "assistBy": a.assistBy,
           "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
+          "errorMethod": a.errorMethod == 'Other' ? 'Service Error' : (a.errorMethod == 'Placement Error' && a.wonMethod == 'Placement' ? 'Receiving Error' : a.errorMethod),
           "$key": a.$key
         }
       })
     })
 
     this.team2set3pointsRef$.subscribe(setpoints => {
-      let setpointsmap = setpoints.map(function(a) {
-        return {
-          "team": team2, 
-          "wonBy": a.wonBy,
-          "wonMethod": a.wonMethod,
-          "assistBy": a.assistBy,
-          "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
-          "$key": a.$key
-        }
+      let setpointsmap = setpoints.map(a => {
+        return this.getSetPointsHash(team2, a);
       });
       this.set3points = this.set3points.concat(setpointsmap);
       this.team2set3points = setpointsmap.length;
       this.set3points.sort(function(a,b) {return (a.$key > b.$key) ? 1 : ((b.$key > a.$key) ? -1 : 0);} );
       let team1point = 0, team2point = 0;
-      this.set3points = this.set3points.map(function(a) {
+      this.set3points = this.set3points.map(a => {
         return {
-          "point": `${((a.team == team1) ? ++team1point : team1point)} - ${((a.team == team2) ? ++team2point : team2point)}`,
+          "team1point": `${((a.team == team1) ? ++team1point : team1point)}`,
+          "team2point": `${((a.team == team2) ? ++team2point : team2point)}`,
+          "teamLogo": `${((a.team == team2) ? team2.logoUrl : team1.logoUrl)}`,
           "team": a.team, 
           "wonBy": a.wonBy,
           "wonMethod": a.wonMethod,
           "assistBy": a.assistBy,
           "errorBy": a.errorBy,
-          "errorMethod": a.errorMethod,
+          "errorMethod": this.getErrorMethod(a.errorMethod, a.wonMethod),
           "$key": a.$key
         }
       })
     })
   }
 
-  // getSetPointsHash(team, a) {
-  //   return {
-  //         "team": team, 
-  //         "wonBy": a.wonBy,
-  //         "wonMethod": a.wonMethod,
-  //         "assistBy": a.assistBy,
-  //         "errorBy": a.errorBy,
-  //         "errorMethod": a.errorMethod,
-  //         "$key": a.$key
-  //       }
-  // }
+  getErrorMethod(method, wonMethod) {
+    if(method == 'Other')
+     return 'Service Error';
+
+    if(method == 'Placement Error' && wonMethod == 'Placement')
+      return 'Receiving Error';
+
+    if(method)
+      return method;
+    else
+      return 'Other';
+  }
+
+  getSetPointsHash(team, a) {
+    return {
+      "team": team, 
+      "wonBy": a.wonBy,
+      "wonMethod": a.wonMethod,
+      "assistBy": a.assistBy,
+      "errorBy": a.errorBy,
+      "errorMethod": a.errorMethod,
+      "$key": a.$key
+    }
+  }
 
   unSubscribeSubscriptions() {
   	this.matchSubscription.unsubscribe();
@@ -281,6 +252,17 @@ export class Matchservice {
           return (team == 'team1') ? this.team1set3points : this.team2set3points;
       default:
           return false;
+    }
+  }
+
+  getPointsBySet(currentSet) {
+    switch(currentSet) {
+      case "set1":
+        return this.set1points;
+      case "set2":
+        return this.set2points;
+      case "set3":
+        return this.set3points;
     }
   }
 

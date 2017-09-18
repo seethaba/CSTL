@@ -31,9 +31,10 @@
 	  	<ion-card *ngFor="let news of NewsRef$ | async">
 		  
 		  	<ion-card-content>
-		    	<div class="font-500" color="dark" ion-text>
-		    	  {{news.title}}	
-		    	</div>
+		    	<h2>
+		    		<span  class="font-500" color="dark" ion-text>
+		    	  {{news.title}}	</span>
+		    	</h2>
 			    <p margin-top>
 			      Published on: {{news.publishedDate}}
 			    </p>
@@ -54,9 +55,10 @@
 	    <ion-card *ngFor="let video of VideosRef$ | async">
 		  
 		  	<ion-card-content>
-		    	<div class="font-500" color="dark" ion-text>
-		    	  {{video.title}}	
-		    	</div>
+		    	<h2>
+		    		<span  class="font-500" color="dark" ion-text>
+		    	  {{video.title}}	</span>
+		    	</h2>
 			    <p margin-top>
 			      Published on: {{video.publishedDate}}
 			    </p>

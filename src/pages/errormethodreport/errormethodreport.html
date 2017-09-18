@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar color='primary'>
+    <ion-title>Error Distribution</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="gray-bg">
+	<div>
+  		<div>
+				<ion-card>
+		      <ion-card-content>
+		        <canvas #team1barset1Canvas></canvas>
+		      </ion-card-content>
+		    </ion-card>
+		    <ion-card>
+		      <ion-card-content>
+		        <canvas #team2barset1Canvas></canvas>
+		      </ion-card-content>
+		    </ion-card>
+
+		    <ion-card>
+		      <ion-card-content>
+		        <canvas #team1barset2Canvas></canvas>
+		      </ion-card-content>
+		    </ion-card>
+		    <ion-card>
+		      <ion-card-content>
+		        <canvas #team2barset2Canvas></canvas>
+		      </ion-card-content>
+		    </ion-card>
+
+		    <div *ngIf="matchService.match.currentSet == 'set3'">
+			    <ion-card>
+			      <ion-card-content>
+			        <canvas #team1barset3Canvas></canvas>
+			      </ion-card-content>
+			    </ion-card>
+			    <ion-card>
+			      <ion-card-content>
+			        <canvas #team2barset3Canvas></canvas>
+			      </ion-card-content>
+		    	</ion-card>
+	    	</div>
+	    </div>
+		</div>
+</ion-content>

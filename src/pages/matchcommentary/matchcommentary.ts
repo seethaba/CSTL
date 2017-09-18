@@ -19,6 +19,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class MatchcommentaryPage {
 
 	matchUrl = ""
+	matchSets = []
+	matchcommentary = ""
 
   constructor(private afDatabase: AngularFireDatabase, 
   	public navCtrl: NavController, 
@@ -31,6 +33,9 @@ export class MatchcommentaryPage {
     this.matchService.initializeMatchData(this.matchUrl);
     this.matchService.initializeTeamsInformation();
     this.matchService.getMatchSetPoints(this.matchUrl, this.matchService.match.team1Name, this.matchService.match.team2Name);
+    this.matchSets = [['set1', this.matchService.set1points], ['set2', this.matchService.set2points], ['set3', this.matchService.set3points]];
+
+    this.matchcommentary = "set1";
   }
 
 }

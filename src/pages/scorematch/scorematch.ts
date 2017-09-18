@@ -151,4 +151,8 @@ export class ScorematchPage {
       'team2points': team2points})
   }
 
+  routeToMatchDetailPage(page) {
+    this.navCtrl.push(page, {matchURL: this.matchUrl, 'src': 'fromMatches'});
+  }
+
 }

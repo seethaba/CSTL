@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>{{matchService.abbrTeam1}} Vs {{matchService.abbrTeam2}}, {{matchService.match.matchType}}, {{matchService.match.pool}}</ion-title>
   </ion-navbar>
 
@@ -24,7 +24,7 @@
 		      Set 2
 		    </ion-segment-button>
 	    
-		    <ion-segment-button value="set3">
+		    <ion-segment-button *ngIf="matchService.match.currentSet == 'set3'" value="set3">
 		      Set 3
 		    </ion-segment-button>
 	    
@@ -33,41 +33,22 @@
 
 	<div margin-top>
 		<div [ngSwitch]="matchcommentary">
-			<ion-list  *ngSwitchCase="'set1'">
-				<ion-item  *ngFor="let setpoint of matchService.set1points">
-				<div>
-					<h1><span class="font-500">{{setpoint.point}},</span>
-					<span> {{setpoint.team}} point</span></h1>
-					<div *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{setpoint.wonBy}}</div>
-				 	<div *ngIf="setpoint.assistBy">Assisted by {{setpoint.assistBy}}</div>
-					<div *ngIf="setpoint.errorMethod">{{setpoint.errorMethod}} by {{setpoint.errorBy}}</div>
-				</div>
-				</ion-item>
-			</ion-list>
-
-			<ion-list  *ngSwitchCase="'set2'">
-				<ion-item  *ngFor="let setpoint of matchService.set2points">
-				<div>
-					<h1><span class="font-500">{{setpoint.point}},</span>
-					<span> {{setpoint.team}} point</span></h1>
-					<div *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{setpoint.wonBy}}</div>
-				 	<div *ngIf="setpoint.assistBy">Assisted by {{setpoint.assistBy}}</div>
-					<div *ngIf="setpoint.errorMethod">{{setpoint.errorMethod}} by {{setpoint.errorBy}}</div>
-				</div>
-				</ion-item>
-			</ion-list>
-
-			<ion-list  *ngSwitchCase="'set3'">
-				<ion-item  *ngFor="let setpoint of matchService.set3points">
-				<div>
-					<h1><span class="font-500">{{setpoint.point}},</span>
-					<span> {{setpoint.team}} point</span></h1>
-					<div *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{setpoint.wonBy}}</div>
-				 	<div *ngIf="setpoint.assistBy">Assisted by {{setpoint.assistBy}}</div>
-					<div *ngIf="setpoint.errorMethod">{{setpoint.errorMethod}} by {{setpoint.errorBy}}</div>
-				</div>
-				</ion-item>
-			</ion-list>
+  		<ng-container *ngFor="let setpointsHash of matchSets">
+				<ion-list  *ngSwitchCase="setpointsHash[0]">
+					<ion-item  *ngFor="let setpoint of setpointsHash[1]">
+						<ion-avatar item-start>
+				      <img src="{{setpoint.team == this.matchService.team1.name ? this.matchService.team1.logoUrl : this.matchService.team2.logoUrl}}">
+				    </ion-avatar>
+						<div>
+							<h2><span class="font-500">{{setpoint.team1point}} - {{setpoint.team2point}},</span>
+							<span class="font-500"> {{matchService.getAbbr(setpoint.team)}} point</span></h2>
+							<div *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{setpoint.wonBy}}</div>
+						 	<div *ngIf="setpoint.assistBy">Assisted by {{setpoint.assistBy}}</div>
+							<div *ngIf="setpoint.errorMethod && setpoint.errorBy">{{setpoint.errorMethod}} by {{setpoint.errorBy}}</div>
+						</div>
+					</ion-item>
+				</ion-list>
+			</ng-container>
 		</div>
  	</div>
 </ion-content>
