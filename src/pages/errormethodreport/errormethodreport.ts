@@ -95,7 +95,7 @@ export class ErrormethodreportPage {
 		        },
 	        	responsive: true,
 				    legend: {
-				        position: 'left',
+				        position: 'bottom',
 				    }
 				  }
 	      });

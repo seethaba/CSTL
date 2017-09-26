@@ -19,28 +19,28 @@ export class MatchstatsindexPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   	this.statsGraph = [
   		{
-  			title: "How many times did the match turn?",
-  			description: "Point by Point analysis",
+  			title: "Point By Point Analysis",
+  			description: "Turning Points - Visual Plot",
   			pageLink: "MatchstatsPage"
   		},
   		{
-  			title: "How well did the teams finish points?",
-  			description: "Comparison of the team's finishing skills",
+  			title: "Finishing Index",
+  			description: "Finishing Skills Comparison",
   			pageLink: "MatchstatsdetailsPage"
   		},
   		{
-  			title: "How consistent were the teams?",
-  			description: "Comparison of the team's killer instinct",
+  			title: "Consistency Index",
+  			description: "Killer Instinct Comparison",
   			pageLink: "KillerinstinctreportPage"
   		},
   		{
-  			title: "How did the teams score the points?",
-  			description: "Comparison of the team's scoring methods",
+  			title: "Scoring Areas",
+  			description: "Distribution of scoring methods",
   			pageLink: "ScoremethodreportPage"	
   		},
   		{
-  			title: "How did the teams Lose Points?",
-  			description: "Comparison of the team's problem areas",
+  			title: "Problem Areas",
+  			description: "Distribution of errors",
   			pageLink: "ErrormethodreportPage"	
   		}
   	]

@@ -78,6 +78,7 @@ export class ScoremethodreportPage {
 			for(let i of [2,1]) {
 				this.barChart = new Chart(this.getSetBarChartObj(set, `team${i}`).nativeElement, {
 	        type: 'doughnut',
+	        height: 260,
 	        data: {
 	        	labels: reportData.labels,
 	        	datasets: [reportData.datasets[i-1]]
@@ -90,7 +91,7 @@ export class ScoremethodreportPage {
 		        },
 	        	responsive: true,
 				    legend: {
-				        position: 'left',
+				        position: 'bottom',
 				    }
 				  }
 	      });

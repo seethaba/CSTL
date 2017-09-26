@@ -9,7 +9,7 @@
             <path url="/__/auth/callback" />
         </host>
     </universal-links>
-    <content original-src="index.html" src="http://192.168.0.9:8100" />
+    <content original-src="index.html" src="http://192.168.7.76:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-navigation href="http://192.168.0.6:8100" />
@@ -92,6 +92,7 @@
     <allow-navigation href="http://192.168.0.9:8100" />
     <allow-navigation href="http://192.168.1.102:8100" />
     <allow-navigation href="http://192.168.0.19:8100" />
+    <allow-navigation href="http://192.168.7.76:8100" />
     <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
