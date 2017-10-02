@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { Matchservice } from '../../providers/matchservice/matchservice';
-import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the MatchstatsPage page.
@@ -28,8 +27,7 @@ export class MatchstatsdetailsPage {
 	matchUrl = '';
 	matchSets = [];
 
-	constructor(private afDatabase: AngularFireDatabase, 
-  	public navCtrl: NavController, 
+	constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
     public matchService: Matchservice) {
   	this.matchUrl = this.navParams.get('matchURL');
@@ -53,8 +51,7 @@ export class MatchstatsdetailsPage {
   }
 
   ionViewDidLoad() {
-  	for(let set of ["set1", "set2", "set3"]) {
-    	let pointsArr = []
+  	for(let set of this.matchService.getNumberofSets()) {
     	let teampoints = this.matchService.getPointsBySet(set);
     	let team1name = this.matchService.team1.name;
     	let team1finish = 0, team1error = 0, team1other = 0, team2finish = 0, team2error = 0, team2other = 0

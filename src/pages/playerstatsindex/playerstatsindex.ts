@@ -14,12 +14,38 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'playerstatsindex.html',
 })
 export class PlayerstatsindexPage {
+	statsGraph = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+  	this.statsGraph = [
+      {
+        title: "Overall Player Impact",
+        description: "Player Finish vs Error Rates",
+        pageLink: "PlayerimpactPage"
+      },
+  		{
+  			title: "Tekong Power",
+  			description: "Comparison of the centers",
+  			pageLink: "ServiceimpactPage"
+  		},
+  		{
+  			title: "Killer Instinct",
+  			description: "Comparison of the strikers",
+  			pageLink: "StrikeimpactPage"
+  		},
+  		{
+  			title: "Feeder Influence",
+  			description: "Comparison of the suppliers",
+  			pageLink: "FeederimpactPage"	
+  		}
+  	]
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PlayerstatsindexPage');
+  routeToReportPage(page) {
+    if(page)
+    {
+    	this.navCtrl.push(page, {matchURL: this.navParams.get('matchURL'), 'src': 'fromMatches'});
+    }
   }
 
 }

@@ -50,7 +50,8 @@ export class ScoremethodreportPage {
   }
 
   ionViewDidLoad() {
-  	for(let set of ["set1", "set2", "set3"]) {
+
+  	for(let set of this.matchService.getNumberofSets()) {
     	let pointsArr = []
     	let teampoints = this.matchService.getPointsBySet(set);
     	let team1name = this.matchService.team1.name;
@@ -68,7 +69,7 @@ export class ScoremethodreportPage {
 		        teamHash[o.team] = { label: o.team, 
 		        	data: reportData.labels.map(function () { return 0; }),
 		        	backgroundColor: ['#22cece','#FF3D67','#059BFF','#FFC233','#FF9124','#8142FF'],
-              borderColor: ['#22cece','#FF3D67','#059BFF','#FFC233','#FF9124','#8142FF'] 
+              borderColor: ['#22cece','#FF3D67','#059BFF','#FFC233','#FF9124','#8142FF']
 		        };
 		        reportData.datasets.push(teamHash[o.team]);
 		    }

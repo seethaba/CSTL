@@ -13,6 +13,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class ErrormethodreportPage {
 
 	barChart: any;
+	reportDataLabels = [];
 	
 	@ViewChild('team1barset1Canvas') team1barset1Canvas;
 	@ViewChild('team1barset2Canvas') team1barset2Canvas;
@@ -48,11 +49,7 @@ export class ErrormethodreportPage {
   }
 
   ionViewDidLoad() {
-  	let setArr = ["set1", "set2"];
-  	if(this.matchService.match.currentSet == 'set3')
-  		setArr.push("set3");
-
-  	for(let set of setArr) {
+  	for(let set of this.matchService.getNumberofSets()) {
     	let pointsArr = []
     	let teampoints = this.matchService.getPointsBySet(set);
     	let team1name = this.matchService.team1.name;
@@ -80,25 +77,29 @@ export class ErrormethodreportPage {
 				}
 			});
 
-			for(let i of [2,1]) {
-				this.barChart = new Chart(this.getSetBarChartObj(set, `team${i}`).nativeElement, {
-	        type: 'doughnut',
-	        data: {
-	        	labels: reportData.labels,
-	        	datasets: [reportData.datasets[i-1]]
-	        },
-	        options: {
-	        	title: {
-		            display: true,
-		            text: `${reportData.datasets[2-i].label} (${set})`,
-		            fontSize: 16
+			this.reportDataLabels = reportData.labels
+
+			if(reportData.labels != []) {
+				for(let i of [2,1]) {
+					this.barChart = new Chart(this.getSetBarChartObj(set, `team${i}`).nativeElement, {
+		        type: 'doughnut',
+		        data: {
+		        	labels: reportData.labels,
+		        	datasets: [reportData.datasets[i-1]]
 		        },
-	        	responsive: true,
-				    legend: {
-				        position: 'bottom',
-				    }
-				  }
-	      });
+		        options: {
+		        	title: {
+			            display: true,
+			            text: `${reportData.datasets[2-i].label} (${set})`,
+			            fontSize: 16
+			        },
+		        	responsive: true,
+					    legend: {
+					        position: 'bottom',
+					    }
+					  }
+		      });
+		  	}
 	  	}
   	}
   }

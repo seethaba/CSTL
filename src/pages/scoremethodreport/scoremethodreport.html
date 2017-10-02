@@ -19,34 +19,34 @@
 		<div>
 			<ion-card>
 		      <ion-card-content>
-		        <canvas height=300 #team1barset1Canvas></canvas>
+		        <canvas height=250 #team1barset1Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
 		    <ion-card>
 		      <ion-card-content>
-		        <canvas height=300 #team2barset1Canvas></canvas>
-		      </ion-card-content>
-		    </ion-card>
-
-		    <ion-card>
-		      <ion-card-content>
-		        <canvas height=300 #team1barset2Canvas></canvas>
-		      </ion-card-content>
-		    </ion-card>
-		    <ion-card>
-		      <ion-card-content>
-		        <canvas height=300 #team2barset2Canvas></canvas>
+		        <canvas height=250 #team2barset1Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
 
-		    <ion-card>
+		    <ion-card *ngIf="matchService.isSetPartofMatch('set2')">
 		      <ion-card-content>
-		        <canvas height=300 #team1barset3Canvas></canvas>
+		        <canvas height=250 #team1barset2Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
-		    <ion-card>
+		    <ion-card *ngIf="matchService.isSetPartofMatch('set2')">
 		      <ion-card-content>
-		        <canvas height=300 #team2barset3Canvas></canvas>
+		        <canvas height=250 #team2barset2Canvas></canvas>
+		      </ion-card-content>
+		    </ion-card>
+
+		    <ion-card *ngIf="matchService.isSetPartofMatch('set3')">
+		      <ion-card-content>
+		        <canvas height=250 #team1barset3Canvas></canvas>
+		      </ion-card-content>
+		    </ion-card>
+		    <ion-card *ngIf="matchService.isSetPartofMatch('set3')">
+		      <ion-card-content>
+		        <canvas height=250 #team2barset3Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
 	    </div>

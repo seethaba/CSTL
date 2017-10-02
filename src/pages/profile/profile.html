@@ -39,14 +39,14 @@
 	    </ion-select>
 	</ion-item>
 
-	<ion-item *ngIf="profile.role == 'Player'">
+	<ion-item *ngIf="1 == 2 && profile.role == 'Player'">
 		<ion-label stacked>Team</ion-label>
 		<ion-select required [(ngModel)]="profile.teamKey">
 	      <ion-option *ngFor="let team of TeamRef$ | async" value="{{team.$key}}">{{team.name}}</ion-option>
 	    </ion-select>
 	</ion-item>
 
-	<ion-item *ngIf="profile.role == 'Player'">
+	<ion-item *ngIf="1 == 2 && profile.role == 'Player'">
 		<ion-label stacked>Play Position</ion-label>
 		<ion-select required [(ngModel)]="profile.position">
 	      <ion-option value="Striker">Striker</ion-option>

@@ -21,6 +21,7 @@ export class MatchcommentaryPage {
 	matchUrl = ""
 	matchSets = []
 	matchcommentary = ""
+  
 
   constructor(private afDatabase: AngularFireDatabase, 
   	public navCtrl: NavController, 

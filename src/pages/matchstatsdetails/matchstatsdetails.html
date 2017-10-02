@@ -19,25 +19,25 @@
   		<div>
 				<ion-card>
 		      <ion-card-header>
-		        Set 1
+		        Set 1 ({{matchService.abbrTeam1}} {{matchService.team1set1points}} - {{matchService.team2set1points}} {{matchService.abbrTeam2}})
 		      </ion-card-header>
 		      <ion-card-content>
 		        <canvas #barset1Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
 
-		    <ion-card>
+		    <ion-card *ngIf="matchService.isSetPartofMatch('set2')">
 		      <ion-card-header>
-		        Set 2
+		        Set 2 ({{matchService.abbrTeam1}} {{matchService.team1set2points}} - {{matchService.team2set2points}} {{matchService.abbrTeam2}})
 		      </ion-card-header>
 		      <ion-card-content>
 		        <canvas #barset2Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
 
-		    <ion-card>
+		    <ion-card *ngIf="matchService.isSetPartofMatch('set3')">
 		      <ion-card-header>
-		        Set 3
+		        Set 3  ({{matchService.abbrTeam1}} {{matchService.team1set3points}} - {{matchService.team2set3points}} {{matchService.abbrTeam2}})
 		      </ion-card-header>
 		      <ion-card-content>
 		        <canvas #barset3Canvas></canvas>

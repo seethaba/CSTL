@@ -47,7 +47,7 @@ export class KillerinstinctreportPage {
   }
 
   ionViewDidLoad() {
-  	for(let set of ["set1", "set2", "set3"]) {
+  	for(let set of this.matchService.getNumberofSets()) {
     	let pointsArr = []
     	let teampoints = this.matchService.getPointsBySet(set);
     	let team1name = this.matchService.team1.name;

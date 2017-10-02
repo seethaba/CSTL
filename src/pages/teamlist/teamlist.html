@@ -22,12 +22,11 @@
 	<ion-list>
 
 		<ion-item  (click)="viewPlayers(team)" *ngFor="let team of TeamRef$ | async">
-	    <ion-thumbnail item-start>
+	    <ion-avatar item-start>
 	      <img src="{{team.logoUrl}}" >
-	    </ion-thumbnail>
-	    <h2>{{team.name}}</h2>
-	    <p>Placeholder for the caption.</p>
-	    <button  *ngIf="adminUser"  (click)="selectTeam(team)" ion-button clear item-end>Options</button>
+	    </ion-avatar>
+	    <h1 class="font-500">{{team.name}}</h1>
+	    <button  *ngIf="adminUser"  (click)="selectTeam(team)" ion-button clear item-end><ion-icon name="more"></ion-icon></button>
 	  </ion-item>
 
 	  

@@ -87,7 +87,7 @@ export class LoginPage {
               "email": res.email
             }).then(() => { 
               this.profileRef$.take(1).subscribe(profileData => {
-                if((profileData.role != 'Player' && profileData.city && profileData.aboutMe) || (profileData.role == 'Player' && profileData.position && profileData.city && profileData.aboutMe && profileData.teamKey)) {
+                if(profileData.role && profileData.city && profileData.aboutMe) {
                   this.navCtrl.setRoot('LoggedInHomePage');
                 } else {
                   this.navCtrl.setRoot("ProfilePage");  

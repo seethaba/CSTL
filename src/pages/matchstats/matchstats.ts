@@ -53,7 +53,7 @@ export class MatchstatsPage {
  
   ionViewDidLoad() {
 
-    for(let set of ["set1", "set2", "set3"]) {
+    for(let set of this.matchService.getNumberofSets()) {
     	let pointsArr = []
     	let teampoints = this.matchService.getPointsBySet(set);
 

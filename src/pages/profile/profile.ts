@@ -38,7 +38,7 @@ export class ProfilePage {
   }
 
   createProfile() {
-    if((this.profile.role != 'Player' && this.profile.city && this.profile.aboutMe) || (this.profile.role == 'Player' && this.profile.position && this.profile.city && this.profile.aboutMe && this.profile.teamKey))  
+    if(this.profile.role && this.profile.city && this.profile.aboutMe)
     {
       this.afAuth.authState.take(1).subscribe(auth => {
   

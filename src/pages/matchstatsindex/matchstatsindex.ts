@@ -30,7 +30,7 @@ export class MatchstatsindexPage {
   		},
   		{
   			title: "Consistency Index",
-  			description: "Killer Instinct Comparison",
+  			description: "Biggest streak and lead Comparison",
   			pageLink: "KillerinstinctreportPage"
   		},
   		{

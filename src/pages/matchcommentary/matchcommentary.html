@@ -42,9 +42,9 @@
 						<div>
 							<h2><span class="font-500">{{setpoint.team1point}} - {{setpoint.team2point}},</span>
 							<span class="font-500"> {{matchService.getAbbr(setpoint.team)}} point</span></h2>
-							<div *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{setpoint.wonBy}}</div>
-						 	<div *ngIf="setpoint.assistBy">Assisted by {{setpoint.assistBy}}</div>
-							<div *ngIf="setpoint.errorMethod && setpoint.errorBy">{{setpoint.errorMethod}} by {{setpoint.errorBy}}</div>
+							<p *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{matchService.playerProfiles[setpoint.wonBy] ? matchService.playerProfiles[setpoint.wonBy].displayName : ""}}</p>
+						 	<p *ngIf="setpoint.assistBy">Assisted by {{matchService.playerProfiles[setpoint.assistBy] ? matchService.playerProfiles[setpoint.assistBy].displayName : ""}}</p>
+							<p *ngIf="setpoint.errorMethod && setpoint.errorBy">{{setpoint.errorMethod}} by {{matchService.playerProfiles[setpoint.errorBy] ? matchService.playerProfiles[setpoint.errorBy].displayName : ""}}</p>
 						</div>
 					</ion-item>
 				</ion-list>

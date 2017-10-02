@@ -8,4 +8,5 @@ export interface Profile {
 	displayName?: string;
 	email?: string;
 	role: string;
+	$key?: string;
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Team } from "../../models/team";
 import { Match } from "../../models/match";
+import { Profile } from "../../models/profile";
 import { Setpoints } from "../../models/setpoints";
 import { Subscription } from "rxjs/Subscription";
 
@@ -37,6 +37,13 @@ export class Matchservice {
   upprTeam1 = "";
   upprTeam2 = "";
 
+  //Team Players
+  team1ProfileRef$: FirebaseListObservable<Profile[]>;
+  team2ProfileRef$: FirebaseListObservable<Profile[]>;
+  playerProfiles = {};
+  private profiledataObserver: any;
+  public profiledata: any;
+
   // Set Points Data
   team1set1pointsRef$: FirebaseListObservable<Setpoints[]>;
   team1set2pointsRef$: FirebaseListObservable<Setpoints[]>;
@@ -56,6 +63,11 @@ export class Matchservice {
 
   constructor(private afDatabase: AngularFireDatabase) {
     // Constructor Code
+    this.profiledataObserver = null;
+
+    this.profiledata = Observable.create(observer => {
+      this.profiledataObserver = observer;
+    });
   }
 
   initializeMatchData(matchUrl: string) {
@@ -65,10 +77,46 @@ export class Matchservice {
   initializeTeamsInformation() {
   	this.matchSubscription = this.matchRef$.take(1).subscribe(match => {
     	this.match = match;
+      
+      // Get Player Profiles
+      this.team1ProfileRef$ = this.afDatabase.list('profile', {
+        query: {
+          orderByChild: "teamKey",
+          equalTo: match.team1Key
+        }
+      });
+
+      this.team2ProfileRef$ = this.afDatabase.list('profile', {
+        query: {
+          orderByChild: "teamKey",
+          equalTo: match.team2Key
+        }
+      });
+
+      this.team1ProfileRef$.subscribe(profiles => {
+        for(let p of profiles) {
+          this.playerProfiles[p.$key] = p;
+        }
+        
+        if(this.profiledataObserver) 
+          this.profiledataObserver.next(true);
+        
+      });
+
+      this.team2ProfileRef$.subscribe(profiles => {
+        for(let p of profiles) {
+          this.playerProfiles[p.$key] = p;
+        }
+
+        if(this.profiledataObserver) 
+          this.profiledataObserver.next(true);
+      })
+
       if(match.toss) {
         this.abbrToss = this.getAbbr(match.toss);
       }
 
+      // Get Team Names
     	this.team1Ref$ = this.afDatabase.object(`team/${match.team1Key}`);
     	this.team2Ref$ = this.afDatabase.object(`team/${match.team2Key}`);
 
@@ -86,6 +134,8 @@ export class Matchservice {
           this.upprTeam2 = team2.name.toUpperCase();  
         }
     	});
+
+      
 
     });
   }
@@ -304,6 +354,24 @@ export class Matchservice {
     return ((team1points >= 21 && (team1points - team2points) >=2) || 
       (team2points >= 21 && (team2points - team1points) >=2) ||
       (team1points == 25) || (team2points == 25));
+  }
+
+  isSetPartofMatch(set) {
+    let arr = (set == 'set3') ? ["set3"] : (set == 'set2' ? ['set2', 'set3'] : ['set1', 'set2', 'set3'])
+    return arr.indexOf(this.match.currentSet) > -1
+  }
+
+  getNumberofSets() {
+    switch(this.match.currentSet) {
+      case "set2":
+        return ['set1', 'set2'];
+      case "set3":
+        return ['set1', 'set2', 'set3'];
+      case "set1":
+        return ['set1'];
+      default:
+        return [];
+    }
   }
 
   getAbbr(name) {

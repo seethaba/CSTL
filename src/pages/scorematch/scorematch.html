@@ -20,8 +20,8 @@
 	  
 	<div class="white-bg" text-center padding-vertical>
 	    <img width=70 height=47 src="https://image.ibb.co/cFLAga/CSTL.png">
-	    <p>Toss won by {{matchService.abbrToss}}, chosen {{matchService.match.chosen}}</p>
-	    <h4 *ngIf="matchService.match.wonBy" ion-text color="secondary">Won by <b>{{matchService.match.wonBy}}, {{matchService.match.setCount}}</b> </h4>
+	    <p>Toss won by {{matchService.abbrToss}}, Chosen {{matchService.match.chosen}}</p>
+	    <h5 *ngIf="matchService.match.wonBy" ion-text color="secondary">Won by <b>{{matchService.match.wonBy}}, {{matchService.match.setCount}}</b> </h5>
 	</div>
 
 	<ion-card margin-top>
@@ -126,18 +126,21 @@
 		<ion-card>
 		  <ion-list>
 		    <button ion-item (click)="routeToMatchDetailPage('MatchcommentaryPage')">
-		      <ion-icon name="logo-html5" item-start></ion-icon>
+		      <ion-icon name="logo-html5" color="danger" item-start></ion-icon>
 		      Match Commentary
+		      <ion-icon  name="arrow-dropright" item-end></ion-icon>
 		    </button>
 
 		    <button ion-item (click)="routeToMatchDetailPage('MatchstatsindexPage')">
-		      <ion-icon name="stats" item-start></ion-icon>
-		      Match Statistics 
+		      <ion-icon name="stats" color="secondary" item-start></ion-icon>
+		      Match Statistics
+		      <ion-icon  name="arrow-dropright" item-end></ion-icon> 
 		    </button>
 
-		    <button ion-item>
-		      <ion-icon name="contacts" item-start></ion-icon>
+		    <button ion-item (click)="routeToMatchDetailPage('PlayerstatsindexPage')">
+		      <ion-icon name="contacts" color="primary" item-start></ion-icon>
 		      Player Statistics
+		      <ion-icon  name="arrow-dropright" item-end></ion-icon>
 		    </button>
 	    </ion-list>
     </ion-card>
