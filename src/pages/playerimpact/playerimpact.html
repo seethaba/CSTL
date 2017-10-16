@@ -15,6 +15,23 @@
 		        Set 1 ({{matchService.abbrTeam1}} {{matchService.team1set1points}} - {{matchService.team2set1points}} {{matchService.abbrTeam2}})
 		      </ion-card-header>
 		      <ion-card-content>
+		      	<div text-center>
+		      		<span margin-right>
+				      	<ng-container *ngFor="let url of playerPicturesSet1[matchService.team1.$key]">
+				      		<ion-avatar class="inlineblock">
+				      			<img  class="circle-pic" src="{{url}}">
+			      			</ion-avatar>
+			      		</ng-container>
+		      		</span>
+		      		<span margin></span>
+		      		<span margin-left>
+			      		<ng-container *ngFor="let url of playerPicturesSet1[matchService.team2.$key]">
+				      		<ion-avatar class="inlineblock">
+				      			<img  class="circle-pic" src="{{url}}">
+			      			</ion-avatar>
+			      		</ng-container>
+		      		</span>
+		      	</div>
 		        <canvas #barset1Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
@@ -24,6 +41,23 @@
 		        Set 2 ({{matchService.abbrTeam1}} {{matchService.team1set2points}} - {{matchService.team2set2points}} {{matchService.abbrTeam2}})
 		      </ion-card-header>
 		      <ion-card-content>
+		      	<div text-center>
+		      		<span margin-right>
+				      	<ng-container *ngFor="let url of playerPicturesSet2[matchService.team1.$key]">
+				      		<ion-avatar class="inlineblock">
+				      			<img  class="circle-pic" src="{{url}}">
+			      			</ion-avatar>
+			      		</ng-container>
+		      		</span>
+		      		<span margin></span>
+		      		<span margin-left>
+			      		<ng-container *ngFor="let url of playerPicturesSet2[matchService.team2.$key]">
+				      		<ion-avatar class="inlineblock">
+				      			<img  class="circle-pic" src="{{url}}">
+			      			</ion-avatar>
+			      		</ng-container>
+		      		</span>
+		      	</div>
 		        <canvas #barset2Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>
@@ -33,6 +67,23 @@
 		        Set 3  ({{matchService.abbrTeam1}} {{matchService.team1set3points}} - {{matchService.team2set3points}} {{matchService.abbrTeam2}})
 		      </ion-card-header>
 		      <ion-card-content>
+		      	<div text-center>
+		      		<span margin-right>
+				      	<ng-container *ngFor="let url of playerPicturesSet3[matchService.team1.$key]">
+				      		<ion-avatar class="inlineblock">
+				      			<img  class="circle-pic" src="{{url}}">
+			      			</ion-avatar>
+			      		</ng-container>
+		      		</span>
+		      		<span margin></span>
+		      		<span margin-left>
+			      		<ng-container *ngFor="let url of playerPicturesSet3[matchService.team2.$key]">
+				      		<ion-avatar class="inlineblock">
+				      			<img  class="circle-pic" src="{{url}}">
+			      			</ion-avatar>
+			      		</ng-container>
+		      		</span>
+		      	</div>
 		        <canvas #barset3Canvas></canvas>
 		      </ion-card-content>
 		    </ion-card>

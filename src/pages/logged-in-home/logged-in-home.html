@@ -31,23 +31,23 @@
           </ion-card>
         </ng-container>
 
+        <a><ion-card (click)="routeToPage('MatchPage')">
+          <img src="http://s1.reutersmedia.net/resources/r/?m=02&d=20150608&t=2&i=1054602929&r=LYNXMPEB570EA&w=1280"/>
+          <div class="card-title">Matches & Results</div>
+          <div class="card-subtitle">Checkout live and past matches from CSTL</div>
+        </ion-card></a>
+
+        <a><ion-card (click)="routeToPage('NewsPage')">
+          <img src="https://saddahaq.blob.core.windows.net/multimedia/4309537-1.jpg"/>
+          <div class="card-title">News & Videos</div>
+          <div class="card-subtitle">Resources from the world of CSTL and Sepaktakraw</div>
+        </ion-card></a>
+
         <a><ion-card (click)="routeToPage('TeamlistPage')">
           <img src="http://en.karobardaily.com/assets/images/news/f079496ec9ad3599c49be75f7e53bc05.jpg"/>
           <div class="card-title">Teams and Players</div>
           <div class="card-subtitle">View the profiles of CSTL heroes</div>
         </ion-card></a>
-
-        <ion-card (click)="routeToPage('NewsPage')">
-          <img src="https://saddahaq.blob.core.windows.net/multimedia/4309537-1.jpg"/>
-          <div class="card-title">News & Videos</div>
-          <div class="card-subtitle">Resources from the world of CSTL and Sepaktakraw</div>
-        </ion-card>
-
-        <ion-card (click)="routeToPage('MatchPage')">
-          <img src="http://s1.reutersmedia.net/resources/r/?m=02&d=20150608&t=2&i=1054602929&r=LYNXMPEB570EA&w=1280"/>
-          <div class="card-title">Matches & Results</div>
-          <div class="card-subtitle">Checkout live and past matches from CSTL</div>
-        </ion-card>
 
         <ion-card *ngIf="adminUser" (click)="startNewMatch()">
           <img src="https://image.ibb.co/fJPARk/img3.jpg"/>

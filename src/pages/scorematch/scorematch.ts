@@ -152,7 +152,7 @@ export class ScorematchPage {
   }
 
   routeToMatchDetailPage(page) {
-    this.navCtrl.push(page, {matchURL: this.matchUrl, 'src': 'fromMatches'});
+    this.navCtrl.push(page, {matchURL: this.matchUrl, 'doubles': this.matchService.match.matchType == 'Doubles', 'src': 'fromMatches'});
   }
 
 }

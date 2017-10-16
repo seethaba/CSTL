@@ -60,3 +60,21 @@
 .hide {
     display: none;
 }
+
+.circle-pic{
+    width:28px;
+    height:28px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;    
+}
+
+.circle-pic.bigimg{
+    width:42px;
+    height:42px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;    
+}
+
+.inlineblock {
+    display: inline-block;
+}

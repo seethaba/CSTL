@@ -16,7 +16,7 @@
 <ion-content class="gray-bg">
 	<ion-card *ngFor="let match of (matchesRef$ | async)?.slice().reverse()">
 	  <ion-card-header>
-	    <ion-badge text-capitalize color="{{(match.status == 'Live') ? 'danger' : 'primary'}}">{{match.status}}</ion-badge><h1 margin-top class="font-500"><b> {{getAbbr(match.team1Name) || "Team 1"}} vs {{getAbbr(match.team2Name) || "Team 2"}}</b></h1><p> {{match.matchType}}, {{match.pool}} </p>
+	    <ion-badge text-capitalize color="{{(match.status == 'Live') ? 'danger' : 'primary'}}">{{match.status}}</ion-badge><h2 ion-text margin-top class="font-500"><b> {{match.team1Name || "Team 1"}} vs {{match.team2Name || "Team 2"}}</b></h2><p> {{match.matchType}}, {{match.pool}} </p>
 
 	    <p *ngIf="match.wonBy" ion-text color="secondary">Won by <b>{{match.wonBy}}, {{match.setCount}}</b> </p>
 

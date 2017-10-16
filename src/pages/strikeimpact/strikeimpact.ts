@@ -16,6 +16,10 @@ export class StrikeimpactPage {
 	barChartSet2: any;
 	barChartSet3: any;
 	
+	playerPicturesSet1 = []
+	playerPicturesSet2 = []
+	playerPicturesSet3 = []
+	
 	@ViewChild('barset1Canvas') barset1Canvas;
 	@ViewChild('barset2Canvas') barset2Canvas;
 	@ViewChild('barset3Canvas') barset3Canvas;
@@ -35,20 +39,40 @@ export class StrikeimpactPage {
 
     this.matchService.profiledata.subscribe((available) => {
 	    if(this.matchService.isSetPartofMatch('set1')) {
-		    this.barChartSet1.data.labels = this.barChartSet1.data.labels.map(key => {return this.matchService.playerProfiles[key] ? this.matchService.playerProfiles[key].displayName : key})
+		    this.barChartSet1.data.labels = this.barChartSet1.data.labels.map(key => {
+			    if(this.matchService.playerProfiles[key])
+			    	this.playerPicturesSet1[this.matchService.playerProfiles[key].teamKey] = (this.playerPicturesSet1[this.matchService.playerProfiles[key].teamKey] || []).concat([this.matchService.playerProfiles[key].photoURL]);
+			    
+			    return this.matchService.playerProfiles[key] ? this.matchService.playerProfiles[key].displayName : key
+		    })
+		    
 		    this.barChartSet1.update();
 	    }
 	    
 	    if(this.matchService.isSetPartofMatch('set2')) {
-		    this.barChartSet2.data.labels = this.barChartSet2.data.labels.map(key => {return this.matchService.playerProfiles[key] ? this.matchService.playerProfiles[key].displayName : key})
+		    
+		    this.barChartSet2.data.labels = this.barChartSet2.data.labels.map(key => {
+		    	if(this.matchService.playerProfiles[key])
+		    		if(this.matchService.playerProfiles[key])
+			    	this.playerPicturesSet2[this.matchService.playerProfiles[key].teamKey] = (this.playerPicturesSet2[this.matchService.playerProfiles[key].teamKey] || []).concat([this.matchService.playerProfiles[key].photoURL])
+
+		    	return this.matchService.playerProfiles[key] ? this.matchService.playerProfiles[key].displayName : key
+	    	})
+
 		    this.barChartSet2.update();
 	    }
 	    
 	    if(this.matchService.isSetPartofMatch('set3')) {
-	    	this.barChartSet3.data.labels = this.barChartSet3.data.labels.map(key => {return this.matchService.playerProfiles[key] ? this.matchService.playerProfiles[key].displayName : key})
+	    	this.barChartSet3.data.labels = this.barChartSet3.data.labels.map(key => {
+		    	if(this.matchService.playerProfiles[key])
+		    		if(this.matchService.playerProfiles[key])
+			    	this.playerPicturesSet3[this.matchService.playerProfiles[key].teamKey] = (this.playerPicturesSet3[this.matchService.playerProfiles[key].teamKey] || []).concat([this.matchService.playerProfiles[key].photoURL]);
+
+		    	return this.matchService.playerProfiles[key] ? this.matchService.playerProfiles[key].displayName : key
+	    	})
+	    	
 	    	this.barChartSet3.update();
 	    }
-      
     });
   }
 

@@ -35,18 +35,64 @@
 		<div [ngSwitch]="matchcommentary">
   		<ng-container *ngFor="let setpointsHash of matchSets">
 				<ion-list  *ngSwitchCase="setpointsHash[0]">
-					<ion-item  *ngFor="let setpoint of setpointsHash[1]">
-						<ion-avatar item-start>
-				      <img src="{{setpoint.team == this.matchService.team1.name ? this.matchService.team1.logoUrl : this.matchService.team2.logoUrl}}">
-				    </ion-avatar>
-						<div>
-							<h2><span class="font-500">{{setpoint.team1point}} - {{setpoint.team2point}},</span>
-							<span class="font-500"> {{matchService.getAbbr(setpoint.team)}} point</span></h2>
-							<p *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{matchService.playerProfiles[setpoint.wonBy] ? matchService.playerProfiles[setpoint.wonBy].displayName : ""}}</p>
-						 	<p *ngIf="setpoint.assistBy">Assisted by {{matchService.playerProfiles[setpoint.assistBy] ? matchService.playerProfiles[setpoint.assistBy].displayName : ""}}</p>
-							<p *ngIf="setpoint.errorMethod && setpoint.errorBy">{{setpoint.errorMethod}} by {{matchService.playerProfiles[setpoint.errorBy] ? matchService.playerProfiles[setpoint.errorBy].displayName : ""}}</p>
-						</div>
-					</ion-item>
+					<ng-container *ngIf="setpointsHash[2]['0 - 0']">
+						<ion-item color="danger" *ngFor="let sub of setpointsHash[2]['0 - 0']">
+							<ion-avatar item-start>
+					      <ion-icon name="person-add"></ion-icon>
+					    </ion-avatar>
+							<div>
+								<h2><span class="font-500"></span>
+								<span class="font-500">Substitution by {{sub.team == "Team1" ? matchService.abbrTeam1 : matchService.abbrTeam2}}</span></h2>
+								<p>{{matchService.playerProfiles[sub.playerOut].displayName}} Out</p>
+							 	<p>{{matchService.playerProfiles[sub.playerIn].displayName}} In</p>
+							</div>
+						</ion-item>
+					</ng-container>
+
+					<ng-container *ngIf="setpointsHash[3]['0 - 0']">
+						<ion-item color="danger" *ngFor="let timeout of setpointsHash[3]['0 - 0']">
+							<div text-center>
+								<h2><span class="font-500">Timeout by {{timeout == "Team1" ? matchService.abbrTeam1 : matchService.abbrTeam2}}</span></h2>
+							</div>
+						</ion-item>
+					</ng-container>
+
+					<ng-container *ngFor="let setpoint of setpointsHash[1]">
+						<ion-item>
+							<ion-avatar item-start>
+					      <img src="{{setpoint.team == this.matchService.team1.name ? this.matchService.team1.logoUrl : this.matchService.team2.logoUrl}}">
+					    </ion-avatar>
+							<div>
+								<h2><span class="font-500">{{setpoint.team1point}} - {{setpoint.team2point}},</span>
+								<span class="font-500"> {{matchService.getAbbr(setpoint.team)}} point</span></h2>
+								<p *ngIf="!(setpoint.wonMethod == 'Opponent Error')">{{setpoint.wonMethod}} point by {{matchService.playerProfiles[setpoint.wonBy] ? matchService.playerProfiles[setpoint.wonBy].displayName : ""}}</p>
+							 	<p *ngIf="setpoint.assistBy">Assisted by {{matchService.playerProfiles[setpoint.assistBy] ? matchService.playerProfiles[setpoint.assistBy].displayName : ""}}</p>
+								<p *ngIf="setpoint.errorMethod && setpoint.errorBy">{{setpoint.errorMethod}} by {{matchService.playerProfiles[setpoint.errorBy] ? matchService.playerProfiles[setpoint.errorBy].displayName : ""}}</p>
+							</div>
+						</ion-item>
+
+						<ng-container *ngIf="setpointsHash[2][pointStructure(setpoint.team1point, setpoint.team2point)]">
+							<ion-item color="danger" *ngFor="let sub of setpointsHash[2][pointStructure(setpoint.team1point, setpoint.team2point)]">
+								<ion-avatar item-start>
+						      <ion-icon name="person-add"></ion-icon>
+						    </ion-avatar>
+								<div>
+									<h2><span class="font-500"></span>
+									<span class="font-500">Substitution by {{sub.team == "Team1" ? matchService.abbrTeam1 : matchService.abbrTeam2}}</span></h2>
+									<p>{{matchService.playerProfiles[sub.playerOut].displayName}} Out</p>
+								 	<p>{{matchService.playerProfiles[sub.playerIn].displayName}} In</p>
+								</div>
+							</ion-item>
+						</ng-container>
+
+						<ng-container *ngIf="setpointsHash[3][pointStructure(setpoint.team1point, setpoint.team2point)]">
+							<ion-item color="danger" *ngFor="let timeout of setpointsHash[3][pointStructure(setpoint.team1point, setpoint.team2point)]">
+								<div text-center>
+									<h2><span class="font-500">Timeout by {{timeout == "Team1" ? matchService.abbrTeam1 : matchService.abbrTeam2}}</span></h2>
+								</div>
+							</ion-item>
+						</ng-container>
+					</ng-container>
 				</ion-list>
 			</ng-container>
 		</div>

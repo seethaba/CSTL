@@ -12,11 +12,13 @@
 
 <ion-content>
 		<ion-list>
-		  <button (click)="routeToReportPage(stat.pageLink)" ion-item *ngFor="let stat of statsGraph">
-		    <ion-icon name="stats" item-start></ion-icon>
-		    <h2><span class="font-500">{{stat.title}}</span></h2>
-		    <p>{{stat.description}}</p>
-		  </button>
+			<ng-container *ngFor="let stat of statsGraph">
+			  <button *ngIf="stat.conditions ? false : true" (click)="routeToReportPage(stat.pageLink)" ion-item>
+			    <ion-icon name="stats" item-start></ion-icon>
+			    <h2><span class="font-500">{{stat.title}}</span></h2>
+			    <p>{{stat.description}}</p>
+			  </button>
+		  </ng-container>
 		</ion-list>
 </ion-content>
 

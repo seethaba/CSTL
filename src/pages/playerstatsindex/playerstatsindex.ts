@@ -17,6 +17,7 @@ export class PlayerstatsindexPage {
 	statsGraph = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   	this.statsGraph = [
       {
         title: "Overall Player Impact",
@@ -26,7 +27,8 @@ export class PlayerstatsindexPage {
   		{
   			title: "Tekong Power",
   			description: "Comparison of the centers",
-  			pageLink: "ServiceimpactPage"
+  			pageLink: "ServiceimpactPage",
+        conditions: this.navParams.get('doubles')
   		},
   		{
   			title: "Killer Instinct",
