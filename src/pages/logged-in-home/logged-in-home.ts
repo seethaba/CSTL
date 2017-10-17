@@ -25,7 +25,7 @@ export class LoggedInHomePage {
   pendingMatchesRef$: FirebaseListObservable<Match[]>
 
 
-  constructor(private platform: Platform, private afDatabase: AngularFireDatabase, 
+  constructor(private afDatabase: AngularFireDatabase, 
     private afAuth: AngularFireAuth,
   	public navCtrl: NavController,
     public alert: AlertController, 

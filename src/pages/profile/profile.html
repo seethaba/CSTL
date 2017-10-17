@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Complete Your Profile</ion-title>
+    <ion-title>Your Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,31 +15,50 @@
 
 <ion-content padding class="gray-bg">
 
-	<ion-item>
-		<ion-label stacked>About Me</ion-label>
-		<ion-textarea required type="text" [(ngModel)]="profile.aboutMe"></ion-textarea>
-	</ion-item>
-	
-	<ion-item>
-		<ion-label stacked>District</ion-label>
-		<ion-select required [(ngModel)]="profile.city">
-	      <ion-option *ngFor="let city of cities" value="{{city}}">{{city}}</ion-option>
-	    </ion-select>
-	</ion-item>
+	<div text-center padding class="white-bg">
+		<img class="circle-pic" width=84 src="{{profile.appPicUrl ? profile.appPicUrl : profile.photoURL}}">
+		<div clear text-center>
+			<button small outline ion-button icon-only (click)="takePhoto()">
+					<ion-icon name="camera"></ion-icon>
+			</button>
+			<button small outline ion-button icon-only>
+					<ion-icon name="folder"></ion-icon>
+			</button>
+		</div>
+	</div>
 
-	<ion-item>
-		<ion-label stacked>I am here as a</ion-label>
-		<ion-select required [(ngModel)]="profile.role">
-	      <ion-option value="Player">Player</ion-option>
-	      <ion-option value="Formerplayer">Former Player</ion-option>
-	      <ion-option value="Referee">Referee</ion-option>
-	      <ion-option value="Guest">Guest User</ion-option>
-	      <ion-option value="Wellwisher">Well Wisher</ion-option>
-	      <ion-option value="Fan">Fan</ion-option>
-	    </ion-select>
-	</ion-item>
+	<div>
+		<ion-item>
+			<ion-label stacked>Name</ion-label>
+			<ion-input required [(ngModel)]="profile.name"></ion-input>
+		</ion-item>
+		
+		<ion-item>
+			<ion-label stacked>District</ion-label>
+			<ion-select required [(ngModel)]="profile.city">
+					<ion-option *ngFor="let city of cities" value="{{city}}">{{city}}</ion-option>
+				</ion-select>
+		</ion-item>
 
-	<ion-item *ngIf="1 == 2 && profile.role == 'Player'">
+		<ion-item>
+			<ion-label stacked>About Me</ion-label>
+			<ion-textarea required type="text" [(ngModel)]="profile.aboutMe"></ion-textarea>
+		</ion-item>
+		
+		<ion-item>
+			<ion-label stacked>I am here as a</ion-label>
+			<ion-select required [(ngModel)]="profile.role">
+					<ion-option value="Player">Player</ion-option>
+					<ion-option value="Formerplayer">Former Player</ion-option>
+					<ion-option value="Referee">Referee</ion-option>
+					<ion-option value="Guest">Guest User</ion-option>
+					<ion-option value="Wellwisher">Well Wisher</ion-option>
+					<ion-option value="Fan">Fan</ion-option>
+				</ion-select>
+		</ion-item>
+	</div>
+
+	<!-- <ion-item *ngIf="1 == 2 && profile.role == 'Player'">
 		<ion-label stacked>Team</ion-label>
 		<ion-select required [(ngModel)]="profile.teamKey">
 	      <ion-option *ngFor="let team of TeamRef$ | async" value="{{team.$key}}">{{team.name}}</ion-option>
@@ -53,13 +72,11 @@
 	      <ion-option value="Tekong">Tekong</ion-option>
 	      <ion-option value="Feeder">Feeder</ion-option>
 	    </ion-select>
-	</ion-item>
-
-
+	</ion-item> -->
 
 	<div col-12 clear padding-vertical>
 		<div float-right>
-			<button ion-button (click)="createProfile()">Save Profile</button>
+			<button ion-button (click)="createProfile(profile)">Save Profile</button>
 		</div>
 	</div>
 	

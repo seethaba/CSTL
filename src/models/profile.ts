@@ -9,4 +9,6 @@ export interface Profile {
 	email?: string;
 	role: string;
 	$key?: string;
+	name?: string;
+	appPicUrl?: string;
 }

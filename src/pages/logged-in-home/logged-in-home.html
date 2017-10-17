@@ -23,7 +23,11 @@
     <ion-row>
       <ion-col col-12 offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 offset-xl-4 col-xl-4>
   
-        
+        <a><ion-card (click)="routeToPage('ProfilePage')">
+          <img src="http://en.karobardaily.com/assets/images/news/f079496ec9ad3599c49be75f7e53bc05.jpg"/>
+          <div class="card-title">Edit Profile</div>
+        </ion-card></a>
+
         <ng-container *ngFor="let pendingMatch of pendingMatchesRef$ | async">
           <ion-card (click)="openLiveMatch(pendingMatch)">
             <img src="https://image.ibb.co/byb1XQ/276507_sepak_takraw700_2.gif"/>

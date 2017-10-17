@@ -62,17 +62,22 @@
 }
 
 .circle-pic{
-    width:28px;
-    height:28px;
     -webkit-border-radius: 50%;
     border-radius: 50%;    
 }
 
-.circle-pic.bigimg{
+.xlimg{
+    width:96px;
+    height:96px;
+}
+.bigimg{
     width:42px;
     height:42px;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;    
+}
+
+.smallimg {
+    width:28px;
+    height:28px;
 }
 
 .inlineblock {

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController  } from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Profile } from "../../models/profile";
-import { Team } from "../../models/team";
+import { Subscription } from "rxjs/Subscription";
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import firebase from 'firebase';
 
 /**
  * Generated class for the ProfilePage page.
@@ -21,28 +23,32 @@ export class ProfilePage {
 
   profile = {} as Profile;
   cities = [];  
-  TeamRef$: FirebaseListObservable<Team[]>
+  profileRef$: FirebaseObjectObservable<Profile>;
+  profileSubscription: Subscription;
+  userUid = "";
 
-  constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase, private toast: ToastController,
-  	public navCtrl: NavController, public navParams: NavParams,
+  constructor(private camera: Camera, 
+    private afAuth: AngularFireAuth,
+    private afDatabase: AngularFireDatabase, 
+    private toast: ToastController,
+    public navCtrl: NavController, 
+    public navParams: NavParams,
     private modal: ModalController) {
-    this.cities = ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kancheepuram", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Kanyakumari", "Namakkal", "Perambalur", "Pudukottai", "Ramanathapuram", "Salem", "Sivagangai", "Thanjavur", "Theni", "Thiruvallur", "Thiruvarur", "Tuticorin", "Trichirappalli", "Thirunelveli", "Tiruppur", "Thiruvannamalai", "The Nilgiris", "Vellore", "Villupuram", "Virudhunagar"];
-    this.TeamRef$ = this.afDatabase.list('team'); 
+
+      this.cities = ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kancheepuram", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Kanyakumari", "Namakkal", "Perambalur", "Pudukottai", "Ramanathapuram", "Salem", "Sivagangai", "Thanjavur", "Theni", "Thiruvallur", "Thiruvarur", "Tuticorin", "Trichirappalli", "Thirunelveli", "Tiruppur", "Thiruvannamalai", "The Nilgiris", "Vellore", "Villupuram", "Virudhunagar"];
+      this.userUid = this.afAuth.auth.currentUser.uid;
+
+      this.profileRef$ = this.afDatabase.object(`profile/${this.userUid}`)
+      this.profileSubscription = this.profileRef$.subscribe(profile => {
+        this.profile = profile;
+        this.profile.name = profile.name || profile.displayName;
+      });
   }
 
-  ionViewDidLoad() {
-    this.toast.create({
-			message: `Please complete your profile`,
-			duration: 3000
-		}).present();
-  }
-
-  createProfile() {
-    if(this.profile.role && this.profile.city && this.profile.aboutMe)
+  createProfile(profile: Profile) {
+    if(profile.role && profile.city && profile.aboutMe)
     {
-      this.afAuth.authState.take(1).subscribe(auth => {
-  
-      this.afDatabase.object(`profile/${auth.uid}`).update(this.profile)
+      this.profileRef$.update(profile)
         .then(() => { 
           this.navCtrl.setRoot('LoggedInHomePage');
         }).catch((e) => {
@@ -52,7 +58,6 @@ export class ProfilePage {
             duration: 7000
           }).present();
         })
-      })
     } else {
       this.toast.create({
         message: `Please enter all the information before continuing to the homepage`,
@@ -66,6 +71,42 @@ export class ProfilePage {
     const privacyModal = this.modal.create('PrivacyPage');
     
     privacyModal.present();
+  }
+
+  async takePhoto() {
+    try {
+      const options: CameraOptions = {
+        quality: 95,
+        targetHeight: 100,
+        targetWidth: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        correctOrientation: true,
+        allowEdit: true
+      }
+  
+      const result = await this.camera.getPicture(options);
+
+      const image = `data:image/jpeg;base64,${result}`;
+
+      const pictures = firebase.storage().ref(`pictures/${this.userUid}/profilepic.jpg`);
+      pictures.putString(image, 'data_url').then(savedPicture => {
+        // Add code to remove the old profile picture from storage
+        // let removePicUrl = this.profile.appPicUrl;
+        // Check if this replaces the existing file
+
+        // Save the new picture to the profile
+        this.profileRef$.update({appPicUrl: savedPicture.downloadURL});
+      });
+    }
+    catch(e) {
+      console.error(e.message);
+    }
+  }
+
+  ionViewWillLeave() {
+  	this.profileSubscription.unsubscribe();
   }
 
 }
