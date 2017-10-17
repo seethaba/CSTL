@@ -105,7 +105,6 @@ export class StrikeimpactPage {
 						"Finish Points": ['#22cece', '#22cece','#22cece', '#22cece','#22cece', '#22cece','#22cece', '#22cece', '#22cece', '#22cece'],
 						"Finish Errors": ['#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67']
 					}
-					let errorColors = ['']
 
 					let users = [o.wonBy, o.errorBy].map(user => user)
 					users = users.filter(element => element !== undefined)

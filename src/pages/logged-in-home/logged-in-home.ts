@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
-import * as firebase from 'firebase/app';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import {Match} from '../../models/match';
+
 
 /**
  * Generated class for the LoggedInHomePage page.
@@ -27,12 +27,10 @@ export class LoggedInHomePage {
 
 
   constructor(private afDatabase: AngularFireDatabase, 
-    private afAuth: AngularFireAuth, 
-    private toast: ToastController,
+    private afAuth: AngularFireAuth,
   	public navCtrl: NavController, 
     public navParams: NavParams,
-    private nativePageTransitions: NativePageTransitions,
-    private loader: LoadingController) {
+    private nativePageTransitions: NativePageTransitions) {
     
     this.afAuth.authState.take(1).subscribe(data => {
       this.afDatabase.object(`profile/${data.uid}`).take(1).subscribe(profileData => {
@@ -93,13 +91,5 @@ export class LoggedInHomePage {
 
   openLiveMatch(pendingMatch: Match) {
     this.navCtrl.push("ScorematchPage", {currentSetURL: `matches/${pendingMatch.$key}/${pendingMatch.currentSet}`, matchURL: `matches/${pendingMatch.$key}`});
-  } 
-
-  presentLoading() {
-    let loader = this.loader.create({
-      content: "Welcome, Please wait...",
-      duration: 3000
-    });
-    loader.present();
   }
 }

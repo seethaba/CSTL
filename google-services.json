@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "543075299402",
+    "firebase_url": "https://sportivation-12308.firebaseio.com",
+    "project_id": "sportivation-12308",
+    "storage_bucket": "sportivation-12308.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543075299402:android:764d2cb7da3280eb",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543075299402-q6aqvcmt5og3iplfogvrtte0279bdkif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNrS1bYL4jjm_fx0s9Z4vlKWPV-PW9o0g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543075299402:android:0daa05512b66b2bf",
+        "android_client_info": {
+          "package_name": "com.cstakrawl.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543075299402-q6aqvcmt5og3iplfogvrtte0279bdkif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNrS1bYL4jjm_fx0s9Z4vlKWPV-PW9o0g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

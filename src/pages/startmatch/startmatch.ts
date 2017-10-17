@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Profile } from "../../models/profile";
 import { Team } from "../../models/team";
 import { Match } from "../../models/match";
@@ -38,12 +37,10 @@ export class StartmatchPage {
   matchId = "";
 
   constructor(private afDatabase: AngularFireDatabase,
-    private afAuth: AngularFireAuth, 
   	public navCtrl: NavController, 
   	public navParams: NavParams,
   	private geoLocation: Geolocation,
-  	private http: Http,
-  	private modal: ModalController) {
+  	private http: Http) {
 
     this.matchId = this.navParams.get('matchId');
   	this.TeamRef$ = this.afDatabase.list('team'); 

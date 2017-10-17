@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { Matchservice } from '../../providers/matchservice/matchservice';
-import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the MatchstatsPage page.
@@ -27,8 +26,7 @@ export class MatchstatsPage {
 	matchUrl = '';
 	matchSets = [];
 
-	constructor(private afDatabase: AngularFireDatabase, 
-  	public navCtrl: NavController, 
+	constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
     public matchService: Matchservice) {
   	this.matchUrl = this.navParams.get('matchURL');

@@ -103,8 +103,7 @@ export class FeederimpactPage {
 					let colors = { 
 						"Assists": ['#22cece', '#22cece','#22cece', '#22cece','#22cece', '#22cece','#22cece', '#22cece', '#22cece', '#22cece'],
 						"Errors": ['#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67', '#FF3D67']
-					}
-					let errorColors = ['']
+					}					
 
 					let users = [o.assistBy].map(user => user)
 					users = users.filter(element => element !== undefined)

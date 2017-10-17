@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { Matchservice } from '../../providers/matchservice/matchservice';
-import { AngularFireDatabase } from 'angularfire2/database';
 
 
 @IonicPage()
@@ -22,8 +21,7 @@ export class KillerinstinctreportPage {
 	matchUrl = '';
 	matchSets = [];
 
-	constructor(private afDatabase: AngularFireDatabase, 
-  	public navCtrl: NavController, 
+	constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
     public matchService: Matchservice) {
   	this.matchUrl = this.navParams.get('matchURL');
@@ -48,7 +46,6 @@ export class KillerinstinctreportPage {
 
   ionViewDidLoad() {
   	for(let set of this.matchService.getNumberofSets()) {
-    	let pointsArr = []
     	let teampoints = this.matchService.getPointsBySet(set);
     	let team1name = this.matchService.team1.name;
     	let team1Counter = 0, team1Highest = 0, team2Counter = 0, team2Highest = 0

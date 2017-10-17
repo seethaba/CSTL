@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Matchservice } from '../../providers/matchservice/matchservice';
-import { AngularFireDatabase } from 'angularfire2/database';
 
 /**
  * Generated class for the ScorematchPage page.
@@ -22,8 +21,7 @@ export class ScorematchPage {
   matchUrl = "";
   srcparam = "";
   
-  constructor(private afDatabase: AngularFireDatabase, 
-  	public navCtrl: NavController, 
+  constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
     private alertCtrl: AlertController,
     public matchService: Matchservice) {
