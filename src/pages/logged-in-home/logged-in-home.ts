@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Platform, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import {Match} from '../../models/match';
-
 
 /**
  * Generated class for the LoggedInHomePage page.
@@ -26,9 +25,10 @@ export class LoggedInHomePage {
   pendingMatchesRef$: FirebaseListObservable<Match[]>
 
 
-  constructor(private afDatabase: AngularFireDatabase, 
+  constructor(private platform: Platform, private afDatabase: AngularFireDatabase, 
     private afAuth: AngularFireAuth,
-  	public navCtrl: NavController, 
+  	public navCtrl: NavController,
+    public alert: AlertController, 
     public navParams: NavParams,
     private nativePageTransitions: NativePageTransitions) {
     
