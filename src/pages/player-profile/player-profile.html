@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>{{profile.displayName}}</ion-title>
+    <ion-title>{{profile.name || profile.displayName}}</ion-title>
     <ion-buttons end>
     	<button ion-button (click)="closeModal()">Close</button>
     </ion-buttons>
@@ -22,12 +22,12 @@
 	  <div class="photo-container">
 		  <img class="photo-backdrop" src="{{teamLogoUrl}}">
 		  <ion-fab middle center>
-	      	<img src="{{profile.photoURL}}">
+	      	<img src="{{profile.appPicUrl ? profile.appPicUrl : profile.photoURL}}">
 		  </ion-fab>
 	  </div>
 
 	  <ion-item margin-top>
-	    <h1>{{profile.displayName}}</h1>
+	    <h1>{{profile.name || profile.displayName}}</h1>
 	    <p>{{profile.aboutMe}}</p>
 	  </ion-item>
 

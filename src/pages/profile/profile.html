@@ -18,10 +18,10 @@
 	<div text-center padding class="white-bg">
 		<img class="circle-pic" width=84 src="{{profile.appPicUrl ? profile.appPicUrl : profile.photoURL}}">
 		<div clear text-center>
-			<button small outline ion-button icon-only (click)="takePhoto()">
+			<button small outline ion-button icon-only (click)="takePhoto('Cam')">
 					<ion-icon name="camera"></ion-icon>
 			</button>
-			<button small outline ion-button icon-only>
+			<button small outline ion-button icon-only (click)="takePhoto('Lib')">
 					<ion-icon name="folder"></ion-icon>
 			</button>
 		</div>

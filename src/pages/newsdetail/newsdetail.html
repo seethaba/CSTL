@@ -16,25 +16,25 @@
 </ion-header>
 
 
-<ion-content class="gray-bg" padding>
+<ion-content class="gray-bg">
 
-	<ion-card padding>
-	  <div class="h2">
+	<div padding>
+	  <h4>
 	    {{news.title}}
-	  </div>
+		</h4>
 
-	  <div *ngIf="news.imageUrl" text-center margin-vertical>
+	  <div *ngIf="news.imageUrl" text-center padding-vertical margin-vertical>
 	  	<img src="{{news.imageUrl}}">
 	  </div>
 
-	  <h2 margin-vertical>
+	  <p margin-vertical>
 	    {{news.paragraph1}}
-	  </h2>
-	  <h2 margin-vertical *ngIf="news.paragraph2">
+		</p>
+	  <p margin-vertical *ngIf="news.paragraph2">
 	    {{news.paragraph2}}
-	  </h2>
+		</p>
 
 	  <a *ngIf="news.cta" margin-vertical (click)="openWebPage(news.cta)">{{news.cta}}</a>
-	</ion-card>
+	</div>
 
 </ion-content>

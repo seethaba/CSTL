@@ -95,6 +95,12 @@ export class Matchservice {
 
       this.team1ProfileRef$.subscribe(profiles => {
         for(let p of profiles) {
+          if(p.appPicUrl)
+            p.photoURL = p.appPicUrl;
+          
+            if(p.name)
+            p.displayName = p.name
+
           this.playerProfiles[p.$key] = p;
         }
         
@@ -105,6 +111,12 @@ export class Matchservice {
 
       this.team2ProfileRef$.subscribe(profiles => {
         for(let p of profiles) {
+          if(p.appPicUrl)
+            p.photoURL = p.appPicUrl;
+
+          if(p.name)
+            p.displayName = p.name
+            
           this.playerProfiles[p.$key] = p;
         }
 

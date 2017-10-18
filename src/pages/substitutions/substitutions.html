@@ -36,7 +36,7 @@
 							<ion-label stacked>Player Out</ion-label>
 							<ion-select  interface="popover" [(ngModel)]="substitution1.playerOut">
 					      		<ng-container *ngFor="let profile of team1ProfileRef$ | async">
-					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  				<ion-option value="{{profile.$key}}">{{profile.name || profile.displayName}}</ion-option>
 					  			</ng-container>
 						    </ion-select>
 						</ion-item>
@@ -45,7 +45,7 @@
 							<ion-label stacked>Player In</ion-label>
 							<ion-select  interface="popover" [(ngModel)]="substitution1.playerIn">
 					      		<ng-container *ngFor="let profile of team1ProfileRef$ | async">
-					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  				<ion-option value="{{profile.$key}}">{{profile.name || profile.displayName}}</ion-option>
 					  			</ng-container>
 						    </ion-select>
 						</ion-item>
@@ -74,7 +74,7 @@
 							<ion-label stacked>Player Out</ion-label>
 							<ion-select  interface="popover" [(ngModel)]="substitution2.playerOut">
 					      		<ng-container *ngFor="let profile of team2ProfileRef$ | async">
-					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  				<ion-option value="{{profile.$key}}">{{profile.name || profile.displayName}}</ion-option>
 					  			</ng-container>
 						    </ion-select>
 						</ion-item>
@@ -83,7 +83,7 @@
 							<ion-label stacked>Player In</ion-label>
 							<ion-select  interface="popover" [(ngModel)]="substitution2.playerIn">
 					      		<ng-container *ngFor="let profile of team2ProfileRef$ | async">
-					  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+					  				<ion-option value="{{profile.$key}}">{{profile.name || profile.displayName}}</ion-option>
 					  			</ng-container>
 						    </ion-select>
 						</ion-item>

@@ -28,50 +28,37 @@
 	<div [ngSwitch]="newsfeed">
 	  <ion-list *ngSwitchCase="'cstlnews'">
 
-	  	<ion-card *ngFor="let news of NewsRef$ | async">
-		  
-		  	<ion-card-content>
-		    	<h2>
-		    		<span  class="font-500" color="dark" ion-text>
+	  	<div (click)="news.contentType=='Video' ? openWebPage(news.content) : openModal(news)" padding margin class="white-bg shadowed" padding *ngFor="let news of NewsRef$ | async">
+				<div *ngIf="news.coverImgUrl">
+					<img src="{{news.coverImgUrl}}">
+				</div>	
+				<div margin-top>
+		    	<h4>
+		    		<span color="dark" ion-text>
 		    	  {{news.title}}	</span>
-		    	</h2>
+		    	</h4>
 			    <p margin-top>
 			      Published on: {{news.publishedDate}}
 			    </p>
-		  	</ion-card-content>
-
-		  	<button (click)="openModal(news)" small margin-horizontal margin-bottom *ngIf="news.contentType=='Post'" ion-button icon-left>
-			  <ion-icon name="paper"></ion-icon>
-			  View
-			</button>
-			<button (click)="openWebPage(news.content)" small margin-horizontal margin-bottom color="danger" *ngIf="news.contentType=='Video'" ion-button icon-left>
-			  <ion-icon name="logo-youtube"></ion-icon>
-			  Watch
-			</button>
-		</ion-card>
+				</div>				
+			</div>
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'gamevideos'">
-	    <ion-card *ngFor="let video of VideosRef$ | async">
-		  
-		  	<ion-card-content>
-		    	<h2>
-		    		<span  class="font-500" color="dark" ion-text>
+	    <div  (click)="openWebPage(video.content)" padding margin class="white-bg shadowed" padding *ngFor="let video of VideosRef$ | async">
+				<div *ngIf="video.coverImgUrl">
+					<img src="{{video.coverImgUrl}}">
+				</div>
+		  	<div margin-top>
+		    	<h4>
+		    		<span color="dark" ion-text>
 		    	  {{video.title}}	</span>
-		    	</h2>
+		    	</h4>
 			    <p margin-top>
 			      Published on: {{video.publishedDate}}
 			    </p>
-		  	</ion-card-content>
-
-		  	
-			<button (click)="openWebPage(video.content)" small margin-horizontal margin-bottom color="danger" ion-button icon-left>
-			  <ion-icon name="logo-youtube"></ion-icon>
-			  Watch
-			</button>
-
-		</ion-card>
+				</div>
+			</div>
     </ion-list>
 	</div>
-
 </ion-content>

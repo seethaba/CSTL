@@ -31,7 +31,7 @@
 		<ion-label stacked>Won by</ion-label>
 		<ion-select  interface="popover" [(ngModel)]="setpoint.wonBy">
       		<ng-container *ngFor="let profile of winningProfileRef$ | async">
-  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  				<ion-option value="{{profile.$key}}">{{profile.name || profile.displayName}}</ion-option>
   			</ng-container>
 	    </ion-select>
 	</ion-item>
@@ -40,7 +40,7 @@
 		<ion-label stacked>Assisted by</ion-label>
 		<ion-select  interface="popover" [(ngModel)]="setpoint.assistBy">
       		<ng-container *ngFor="let profile of winningProfileRef$ | async">
-  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  				<ion-option value="{{profile.$key}}">{{profile.name || profile.displayName}}</ion-option>
   			</ng-container>
 	    </ion-select>
 	</ion-item>
@@ -58,7 +58,7 @@
 		<ion-label stacked>Error by</ion-label>
 		<ion-select  interface="popover" [(ngModel)]="setpoint.errorBy">
       		<ng-container *ngFor="let profile of losingProfileRef$ | async">
-  				<ion-option value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  				<ion-option value="{{profile.$key}}">{{profile.name || profile.displayName}}</ion-option>
   			</ng-container>
 	    </ion-select>
 	</ion-item>

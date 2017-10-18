@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Camera } from '@ionic-native/camera';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireAuthModule} from 'angularfire2/auth';
@@ -73,6 +74,7 @@ firebase.initializeApp({
     InAppBrowser,
     Geolocation,
     Camera,
+    FileChooser,
     NativePageTransitions,
     RemoteServiceProvider
   ]

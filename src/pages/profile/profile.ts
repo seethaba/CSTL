@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController  } from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Profile } from "../../models/profile";
 import { Subscription } from "rxjs/Subscription";
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FilePath, File } from 'ionic-native';
 import firebase from 'firebase';
 
 /**
@@ -26,6 +28,8 @@ export class ProfilePage {
   profileRef$: FirebaseObjectObservable<Profile>;
   profileSubscription: Subscription;
   userUid = "";
+  nativePath: any;
+  imgSource: any;
 
   constructor(private camera: Camera, 
     private afAuth: AngularFireAuth,
@@ -33,7 +37,8 @@ export class ProfilePage {
     private toast: ToastController,
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private modal: ModalController) {
+    private modal: ModalController,
+    private fileChooser: FileChooser) {
 
       this.cities = ["Ariyalur", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", "Dindigul", "Erode", "Kancheepuram", "Karur", "Krishnagiri", "Madurai", "Nagapattinam", "Kanyakumari", "Namakkal", "Perambalur", "Pudukottai", "Ramanathapuram", "Salem", "Sivagangai", "Thanjavur", "Theni", "Thiruvallur", "Thiruvarur", "Tuticorin", "Trichirappalli", "Thirunelveli", "Tiruppur", "Thiruvannamalai", "The Nilgiris", "Vellore", "Villupuram", "Virudhunagar"];
       this.userUid = this.afAuth.auth.currentUser.uid;
@@ -73,7 +78,7 @@ export class ProfilePage {
     privacyModal.present();
   }
 
-  async takePhoto() {
+  async takePhoto(sourceType) {
     try {
       const options: CameraOptions = {
         quality: 95,
@@ -83,7 +88,8 @@ export class ProfilePage {
         encodingType: this.camera.EncodingType.JPEG,
         mediaType: this.camera.MediaType.PICTURE,
         correctOrientation: true,
-        allowEdit: true
+        allowEdit: true,
+        sourceType: sourceType == 'Lib' ? this.camera.PictureSourceType.PHOTOLIBRARY : this.camera.PictureSourceType.CAMERA
       }
   
       const result = await this.camera.getPicture(options);
@@ -97,16 +103,34 @@ export class ProfilePage {
         // Check if this replaces the existing file
 
         // Save the new picture to the profile
-        this.profileRef$.update({appPicUrl: savedPicture.downloadURL});
+        this.profilePictureUploadSuccess(savedPicture);
       });
     }
     catch(e) {
-      console.error(e.message);
+      this.profilePictureUploadFailure(e);
     }
   }
 
   ionViewWillLeave() {
   	this.profileSubscription.unsubscribe();
+  }
+
+  profilePictureUploadSuccess(savedPicture) {
+    this.profileRef$.update({appPicUrl: savedPicture.downloadURL});
+    
+    this.toast.create({
+      message: `Profile picture changed successfully`,
+      duration: 5000
+    }).present();
+  }
+
+  profilePictureUploadFailure(err) {
+    console.error(err.message);
+
+    this.toast.create({
+      message: `Profile picture was not updated`,
+      duration: 5000
+    }).present();
   }
 
 }
