@@ -41,10 +41,10 @@ export class GalleryPage {
 
   ionViewWillLeave() {
      let options: NativeTransitionOptions = {
-      duration: 500
+      duration: 200
      };
 
-    this.nativePageTransitions.flip(options);
+    this.nativePageTransitions.fade(options);
   }
 
 }
