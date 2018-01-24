@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController} from 'ionic-angular';
 import { AddTeamPage } from '../../pages/add-team/add-team';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Team } from "../../models/team";
 import { EditTeamPage } from "../../pages/edit-team/edit-team";
 import { ShowprofilePage } from "../../pages/showprofile/showprofile";
@@ -25,7 +25,7 @@ export class TeamlistPage {
     private actionSheetCtrl: ActionSheetController,
     private nativePageTransitions: NativePageTransitions) {
 
-  	this.TeamRef$ = this.afDatabase.list('team');
+  	this.TeamRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/team`);
     this.afAuth.authState.take(1).subscribe(data => {
       this.afDatabase.object(`profile/${data.uid}`).take(1).subscribe(profileData => {
         this.adminUser = profileData.admin;
@@ -35,11 +35,11 @@ export class TeamlistPage {
   }
 
   navigateToAddTeamPage() {
-  	this.navCtrl.push('AddTeamPage');
+  	this.navCtrl.push('AddTeamPage', {'tournamentName': this.navParams.get('tournamentName')});
   }
 
   viewPlayers(team: Team){
-    this.navCtrl.push('ShowprofilePage', {teamName: team.name, teamKey: team.$key, teamLogoUrl: team.logoUrl});
+    this.navCtrl.push('ShowprofilePage', {'tournamentName': this.navParams.get('tournamentName'), teamName: team.name, teamKey: team.$key, teamLogoUrl: team.logoUrl});
   }
 
   selectTeam(team: Team){
@@ -48,7 +48,7 @@ export class TeamlistPage {
   		buttons: [{
   			text: "Edit",
   			handler: () => {
-  				this.navCtrl.push('EditTeamPage', {teamId: team.$key})
+  				this.navCtrl.push('EditTeamPage', {teamId: team.$key, 'tournamentName': this.navParams.get('tournamentName')})
   			}}, {
   			text: "Delete",
   			role: 'destructive',

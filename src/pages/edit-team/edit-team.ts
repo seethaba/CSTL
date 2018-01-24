@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
+import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database-deprecated";
 import { Team } from "../../models/team";
 import { Subscription } from "rxjs/Subscription";
 
@@ -26,7 +26,7 @@ export class EditTeamPage {
 
   	const teamId = this.navParams.get('teamId');
 
-  	this.teamRef$ = this.afDatabase.object(`team/${teamId}`)
+  	this.teamRef$ = this.afDatabase.object(`${this.navParams.get('tournamentName')}/team/${teamId}`)
   	this.teamSubscription = this.teamRef$.subscribe(team => this.team = team);
   }
 

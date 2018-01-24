@@ -20,6 +20,7 @@ export class ScorematchPage {
   //Match Variables
   matchUrl = "";
   srcparam = "";
+  picURL = ""
   
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
@@ -28,10 +29,11 @@ export class ScorematchPage {
 
   	this.matchUrl = this.navParams.get('matchURL');
     this.srcparam = this.navParams.get('src');
+    this.picURL = this.navParams.get('tournamentName') == 'tournaments/cstl2017' ? 'https://image.ibb.co/cFLAga/CSTL.png' : 'https://image.ibb.co/gunZLm/psgtechlogo.jpg'
 
     // Call Provider Methods
     this.matchService.initializeMatchData(this.matchUrl);
-    this.matchService.initializeTeamsInformation();
+    this.matchService.initializeTeamsInformation(this.navParams.get('tournamentName'));
     this.matchService.getMatchSetPoints(this.matchUrl, this.matchService.match.team1Name, this.matchService.match.team2Name);
 
   }
@@ -61,7 +63,8 @@ export class ScorematchPage {
       'teamLogoUrl': winningTeamData.logoUrl,
       'teamName': winningTeamData.name,
       'winningTeamKey': winningTeamData.$key,
-      'losingTeamKey': losingTeamData.$key
+      'losingTeamKey': losingTeamData.$key,
+      'tournamentName': this.navParams.get('tournamentName')
     });
   }
 
@@ -134,7 +137,8 @@ export class ScorematchPage {
       'team2': this.matchService.team2, 
       'currentSet': this.matchService.match.currentSet, 
       'team1points': team1points, 
-      'team2points': team2points})
+      'team2points': team2points,
+      'tournamentName': this.navParams.get('tournamentName')})
   }
 
   routeToTimeoutsPage() {
@@ -150,7 +154,7 @@ export class ScorematchPage {
   }
 
   routeToMatchDetailPage(page) {
-    this.navCtrl.push(page, {matchURL: this.matchUrl, 'doubles': this.matchService.match.matchType == 'Doubles', 'src': 'fromMatches'});
+    this.navCtrl.push(page, {tournamentName: this.navParams.get('tournamentName'), matchURL: this.matchUrl, 'doubles': this.matchService.match.matchType == 'Doubles', 'src': 'fromMatches'});
   }
 
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import {  User } from "../../models/user";
 import { AngularFireAuth} from 'angularfire2/auth'; 
-import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Profile } from "../../models/profile";
 import { Match } from "../../models/match";
 import * as firebase from 'firebase/app';

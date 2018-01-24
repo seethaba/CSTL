@@ -32,7 +32,7 @@ export class ScoremethodreportPage {
 
     // Call Provider Methods
     this.matchService.initializeMatchData(this.matchUrl);
-    this.matchService.initializeTeamsInformation();
+    this.matchService.initializeTeamsInformation(this.navParams.get('tournamentName'));
     this.matchService.getMatchSetPoints(this.matchUrl, this.matchService.match.team1Name, this.matchService.match.team2Name);
   }
 

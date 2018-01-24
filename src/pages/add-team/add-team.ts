@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Team } from "../../models/team";
-import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database-deprecated";
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
 
@@ -24,7 +24,7 @@ export class AddTeamPage {
   teamRef$: FirebaseListObservable<Team[]>
 
   constructor(private afDatabase: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams, private nativePageTransitions: NativePageTransitions) {
-  	this.teamRef$ = this.afDatabase.list('team');
+  	this.teamRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/team`);
   }
 
   ionViewDidLoad() {

@@ -49,7 +49,7 @@ export class MatchstatsindexPage {
   routeToReportPage(page) {
     if(page)
     {
-    	this.navCtrl.push(page, {matchURL: this.navParams.get('matchURL'), 'src': 'fromMatches'});
+    	this.navCtrl.push(page, {tournamentName: this.navParams.get('tournamentName'), matchURL: this.navParams.get('matchURL'), 'src': 'fromMatches'});
     }
   }
 

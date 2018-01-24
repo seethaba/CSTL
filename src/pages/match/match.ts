@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Match } from "../../models/match";
 
 /**
@@ -25,7 +25,11 @@ export class MatchPage {
     private nativePageTransitions: NativePageTransitions,
     private afDatabase: AngularFireDatabase) {
 
-    this.matchesRef$ = this.afDatabase.list('matches');
+    this.matchesRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/matches`, {
+      query: {
+        orderByChild: `orderKey`
+      }
+    });
   }
 
   ionViewWillLeave() {
@@ -48,6 +52,6 @@ export class MatchPage {
 
 
   routeToScorematchPage(match, page) {
-    this.navCtrl.push(page, {matchURL: `matches/${match.$key}`, 'src': 'fromMatches'});
+    this.navCtrl.push(page, {tournamentName: this.navParams.get('tournamentName'), matchURL: `${this.navParams.get('tournamentName')}/matches/${match.$key}`, 'src': 'fromMatches'});
   }
 }

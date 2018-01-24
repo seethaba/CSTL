@@ -51,7 +51,7 @@ export class LoggedInHomePage {
     this.navCtrl.setRoot("LoginPage");  
   }
 
-  routeToPage(page) {
-    this.navCtrl.push(page);
+  routeToPage(page, tournamentName, pageTitle) {
+    this.navCtrl.push(page, {tournamentName: `tournaments/${tournamentName}`, pageTitle: pageTitle});
   }
 }

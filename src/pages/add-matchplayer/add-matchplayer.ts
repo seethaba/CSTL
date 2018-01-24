@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Profile } from "../../models/profile";
 import { Matchplayers } from "../../models/matchplayers";
 
@@ -32,7 +32,7 @@ export class AddMatchplayerPage {
   	public navParams: NavParams) {
   	this.profileRef$ = this.afDatabase.list('profile', {
   	  query: {
-  	    orderByChild: "teamKey",
+  	    orderByChild: `${this.navParams.get('tournamentName')}`,
   	    equalTo: this.navParams.get('teamKey')
   	  }
   	});
@@ -49,6 +49,10 @@ export class AddMatchplayerPage {
   addMatchplayer(matchplayer: Matchplayers) {
   	this.matchplayersRef$.push(this.matchplayer);
     this.navCtrl.pop();
+  }
+
+  setDisplayName(displayName) {
+    this.matchplayer.displayName = displayName;
   }
 
 }

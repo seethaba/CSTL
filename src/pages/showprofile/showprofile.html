@@ -17,7 +17,7 @@
 	<ion-list>
 	  <ion-item (click)="openModal(profile)" *ngFor="let profile of profileRef$ | async">
 	    <ion-avatar item-start>
-	      <img src="{{profile.appPicUrl ? profile.appPicUrl : profile.photoURL}}">
+	      <img src="{{profile.appPicUrl ? profile.appPicUrl : 'https://image.ibb.co/b6oVGw/default_user.png'}}">
 	    </ion-avatar>
 	    <h2>{{profile.name || profile.displayName}}</h2>
 	    <p>{{profile.aboutMe}}</p>

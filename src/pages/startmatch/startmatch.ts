@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Profile } from "../../models/profile";
 import { Team } from "../../models/team";
 import { Match } from "../../models/match";
@@ -28,6 +28,7 @@ export class StartmatchPage {
   TeamRef$: FirebaseListObservable<Team[]>;
   profileRef$: FirebaseListObservable<Profile[]>;
   matchRef$: FirebaseObjectObservable<Match>;
+  matchesRef$: FirebaseListObservable<Match[]>;
   MatchSubscription: Subscription;
   profile = {} as Profile;
   match = {} as Match;
@@ -35,6 +36,7 @@ export class StartmatchPage {
   events = [];
   tossChoices = [];
   matchId = "";
+  reguNumbers = [];
 
   constructor(private afDatabase: AngularFireDatabase,
   	public navCtrl: NavController, 
@@ -43,7 +45,7 @@ export class StartmatchPage {
   	private http: Http) {
 
     this.matchId = this.navParams.get('matchId');
-  	this.TeamRef$ = this.afDatabase.list('team'); 
+  	this.TeamRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/team`); 
   	this.geoLocation.getCurrentPosition().then((resp) => {
 	    var lat=resp.coords.latitude;
 	    var long=resp.coords.longitude;
@@ -55,25 +57,28 @@ export class StartmatchPage {
 		  this.match.location = "NICM, Chennai";
 		});
 		this.pool = ["League (Pool A)", "League (Pool B)", "Quarter-Final", "Semi-Final", "Hardline", "Final", "Plate-Semi-Final", "Plate-Hardline", "Plate-Final"];
-		this.events = ["Regu", "Doubles"];
-		this.tossChoices = ["Side", "Service"];
-		
-
-    this.matchRef$ = this.afDatabase.object(`matches/${this.matchId}`);
-    this.MatchSubscription = this.matchRef$.subscribe(match => this.match = match);
+		this.events = ["Regu", "Doubles", "Team"];
+    this.tossChoices = ["Side", "Service"];
+    this.reguNumbers = [1,2,3];
+    
+    this.matchRef$ = this.afDatabase.object(`${this.navParams.get('tournamentName')}/matches/${this.matchId}`);
+    this.MatchSubscription = this.matchRef$.subscribe(match => {
+      this.match = match
+      this.match.orderKey = match.$key;
+    });
   }
 
   startMatch(match) {
     this.matchRef$.update(match);
     
-    this.afDatabase.object(`team/${match.team1Key}`).subscribe(team1 => {
+    this.afDatabase.object(`${this.navParams.get('tournamentName')}/team/${match.team1Key}`).subscribe(team1 => {
       this.matchRef$.update({"team1Name": team1.name});
     })
-    this.afDatabase.object(`team/${match.team2Key}`).subscribe(team2 => {
+    this.afDatabase.object(`${this.navParams.get('tournamentName')}/team/${match.team2Key}`).subscribe(team2 => {
       this.matchRef$.update({"team2Name": team2.name});
     })
 
-    this.navCtrl.push("ScorematchPage", {currentSetURL: `matches/${match.$key}/set1`, matchURL: `matches/${match.$key}`});
+    this.navCtrl.push("ScorematchPage", {tournamentName: this.navParams.get('tournamentName'), currentSetURL: `${this.navParams.get('tournamentName')}/matches/${match.$key}/set1`, matchURL: `${this.navParams.get('tournamentName')}/matches/${match.$key}`});
   }
 
   ionViewWillLeave() {
@@ -81,7 +86,33 @@ export class StartmatchPage {
   }
 
   changeTeam(team, teamKey, teamName, event) {
-  	this.navCtrl.push('ChooseplayersPage', {teamUri: `matches/${this.matchId}/${team}`, teamKey: teamKey, teamName: teamName, eventType: event});
+  	this.navCtrl.push('ChooseplayersPage', {tournamentName: this.navParams.get('tournamentName'), teamUri: `${this.navParams.get('tournamentName')}/matches/${this.matchId}/${team}`, teamKey: teamKey, teamName: teamName, eventType: event});
+  }
+
+  setOrderKey(reguNum) {
+    if(reguNum == 1) {
+      this.match.orderKey = `${this.match.$key}_2`;
+    }
+
+    if(reguNum != 1) {
+      this.afDatabase.list(`${this.navParams.get('tournamentName')}/matches`,  {
+        query: {
+          orderByChild: `matchType`,
+          equalTo: 'Team'
+        }
+      }).subscribe(matches => {
+        for(let a of matches) {
+          
+          let matchTeams = [this.match.team1Key, this.match.team2Key]
+          let arrTeams = [a.team1Key, a.team2Key]
+
+          if(matchTeams.sort().join(',') === arrTeams.sort().join(',') && a.pool == this.match.pool && a.reguNumber == "1") {
+            this.match.orderKey = `${a.$key}_${3%Number(reguNum)}`
+            break;
+          }
+        };
+      })
+    }
   }
 
 }

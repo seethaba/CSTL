@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Resources } from "../../models/resources";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
@@ -27,7 +27,7 @@ export class GalleryPage {
   	public navParams: NavParams,
     private nativePageTransitions: NativePageTransitions) {
 
-  	this.galleryRef$ = this.afDatabase.list('resources', {
+  	this.galleryRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/resources`, {
       query: {
         orderByChild: "category",
         equalTo: "Gallery"

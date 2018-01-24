@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Team } from "../../models/team";
 import { Match } from "../../models/match";
 import { Profile } from "../../models/profile";
@@ -74,21 +74,21 @@ export class Matchservice {
   	this.matchRef$ = this.afDatabase.object(matchUrl);
   }
 
-  initializeTeamsInformation() {
+  initializeTeamsInformation(tournamentName) {
   	this.matchSubscription = this.matchRef$.take(1).subscribe(match => {
     	this.match = match;
       
       // Get Player Profiles
       this.team1ProfileRef$ = this.afDatabase.list('profile', {
         query: {
-          orderByChild: "teamKey",
+          orderByChild: `${tournamentName}`,
           equalTo: match.team1Key
         }
       });
 
       this.team2ProfileRef$ = this.afDatabase.list('profile', {
         query: {
-          orderByChild: "teamKey",
+          orderByChild: `${tournamentName}`,
           equalTo: match.team2Key
         }
       });
@@ -97,6 +97,8 @@ export class Matchservice {
         for(let p of profiles) {
           if(p.appPicUrl)
             p.photoURL = p.appPicUrl;
+          else
+            p.photoURL = 'https://image.ibb.co/b6oVGw/default_user.png';
           
             if(p.name)
             p.displayName = p.name
@@ -113,6 +115,8 @@ export class Matchservice {
         for(let p of profiles) {
           if(p.appPicUrl)
             p.photoURL = p.appPicUrl;
+          else
+            p.photoURL = 'https://image.ibb.co/b6oVGw/default_user.png';
 
           if(p.name)
             p.displayName = p.name
@@ -129,8 +133,8 @@ export class Matchservice {
       }
 
       // Get Team Names
-    	this.team1Ref$ = this.afDatabase.object(`team/${match.team1Key}`);
-    	this.team2Ref$ = this.afDatabase.object(`team/${match.team2Key}`);
+    	this.team1Ref$ = this.afDatabase.object(`${tournamentName}/team/${match.team1Key}`);
+    	this.team2Ref$ = this.afDatabase.object(`${tournamentName}/team/${match.team2Key}`);
 
     	this.team1Subscription = this.team1Ref$.subscribe(team1 => {
     		this.team1 = team1;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform, IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import {AngularFireAuth} from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import {Match} from '../../models/match';
 
@@ -23,6 +23,7 @@ export class CstlPage {
   currentUserKey = ""
   matchRef$: FirebaseListObservable<Match[]>
   pendingMatchesRef$: FirebaseListObservable<Match[]>
+  pageTitle =""
 
 
   constructor(private afDatabase: AngularFireDatabase, 
@@ -37,7 +38,7 @@ export class CstlPage {
         this.adminUser = profileData.admin;
         this.currentUserKey = profileData.$key;
 
-        this.pendingMatchesRef$ = this.afDatabase.list('matches', {
+        this.pendingMatchesRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/matches`, {
           query: {
             orderByChild: "profileKey",
             equalTo: profileData.$key
@@ -46,7 +47,8 @@ export class CstlPage {
       });
     }); 
 
-    this.matchRef$ = this.afDatabase.list('matches');
+    this.matchRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/matches`);
+    this.pageTitle = this.navParams.get('pageTitle');
   }
 
   ionViewWillLeave() {
@@ -58,7 +60,7 @@ export class CstlPage {
   }
 
   routeToPage(page) {
-    this.navCtrl.push(page);
+    this.navCtrl.push(page, {tournamentName: this.navParams.get('tournamentName')});
   }
 
   startNewMatch() {
@@ -68,20 +70,24 @@ export class CstlPage {
       "status": "Live",
       "dateTime": new Date().toISOString()
     });
-    this.navCtrl.push("StartmatchPage", {matchId: matchRef.key});  
+    this.navCtrl.push("StartmatchPage", {tournamentName: `${this.navParams.get('tournamentName')}`, matchId: matchRef.key});
   }
 
   openLiveMatch(pendingMatch: Match) {
-    this.navCtrl.push("ScorematchPage", {currentSetURL: `matches/${pendingMatch.$key}/${pendingMatch.currentSet}`, matchURL: `matches/${pendingMatch.$key}`});
+    this.navCtrl.push("ScorematchPage", {tournamentName: `${this.navParams.get('tournamentName')}`, currentSetURL: `${this.navParams.get('tournamentName')}/matches/${pendingMatch.$key}/${pendingMatch.currentSet}`, matchURL: `${this.navParams.get('tournamentName')}/matches/${pendingMatch.$key}`});
   }
 
   getAbbr(name) {
-    let data = name.split(' '), output = "";
+    let output = "";
+    
+    if(name) {
+      let data = name.split(' ');
 
-    for ( var i = 0; i < data.length; i++) {
-        output += data[i].substring(0,1);
+      for ( var i = 0; i < data.length; i++) {
+          output += data[i].substring(0,1);
+      }
     }
-
+    
     return output;
   }
 }

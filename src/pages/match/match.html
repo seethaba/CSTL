@@ -14,15 +14,24 @@
 
 
 <ion-content class="gray-bg">
-	<ion-card *ngFor="let match of (matchesRef$ | async)?.slice().reverse()">
-	  <ion-card-header>
-	    <ion-badge text-capitalize color="{{(match.status == 'Live') ? 'danger' : 'primary'}}">{{match.status}}</ion-badge><h2 ion-text margin-top class="font-500"><b> {{match.team1Name || "Team 1"}} vs {{match.team2Name || "Team 2"}}</b></h2><p> {{match.matchType}}, {{match.pool}} </p>
-
-	    <p *ngIf="match.wonBy" ion-text color="secondary">Won by <b>{{match.wonBy}}, {{match.setCount}}</b> </p>
-
-	  </ion-card-header>
-	  <ion-card-content>
-	    <button margin-bottom float-left ion-button small color="dark" (click)="routeToScorematchPage(match, 'ScorematchPage')" icon-start ion-button><ion-icon name="flag"></ion-icon>View Details</button>
-	  </ion-card-content>
-	</ion-card>
+	<ion-list>
+			<ng-container  *ngFor="let match of (matchesRef$ | async)?.slice().reverse()">
+					
+					<div margin-horizontal margin-top padding text-center class="dark-bg text-white"  *ngIf="match.reguNumber == 1 || match.reguNumber == null">
+							<h6 no-margin><b> {{match.team1Name || "Team 1"}} vs {{match.team2Name || "Team 2"}}</b></h6>
+					</div>
+					
+					<ion-card text-center>
+							<ion-card-header>
+								<ion-badge text-capitalize color="{{(match.status == 'Live') ? 'danger' : 'primary'}}">{{match.status}}</ion-badge>
+								<h2 margin-top><b>{{match.matchType}} Event {{match.reguNumber == null ? '' : ', Regu-' + match.reguNumber}} </b></h2>
+								<b><p> {{match.pool}} </p></b>
+					
+								<p *ngIf="match.wonBy" ion-text color="secondary">Won by <b>{{match.wonBy}}, {{match.setCount}}</b> </p>
+								<button margin-top ion-button small color="secondary" (click)="routeToScorematchPage(match, 'ScorematchPage')" icon-start ion-button><ion-icon name="flag"></ion-icon>View Details</button>
+					
+							</ion-card-header>
+						</ion-card>
+			</ng-container>
+	</ion-list>
 </ion-content>

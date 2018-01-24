@@ -7,6 +7,7 @@ export interface Match {
 	referee1Name?: string;
 	referee2Name?: string;
 	matchType?: string;
+	reguNumber?: number;
 	pool?: string;
 	dateTime?: string;
 	location?: string;
@@ -16,4 +17,5 @@ export interface Match {
 	matchCreated?: boolean;
 	profileKey: string;
 	currentSet: string;
+	orderKey?: string;
 }

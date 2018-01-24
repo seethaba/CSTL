@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Resources } from "../../models/resources";
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
@@ -30,7 +30,7 @@ export class NewsPage {
   	private modal: ModalController,
     private nativePageTransitions: NativePageTransitions) {
 
-  	this.NewsRef$ = this.afDatabase.list('resources', {
+  	this.NewsRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/resources`, {
 	  query: {
 	    orderByChild: "category",
 	    equalTo: "News"
@@ -38,7 +38,7 @@ export class NewsPage {
 
 	})
 
-	this.VideosRef$ = this.afDatabase.list('resources', {
+	this.VideosRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/resources`, {
 	  query: {
 	    orderByChild: "category",
 	    equalTo: "Videos"

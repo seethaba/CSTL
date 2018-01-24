@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController  } from 'ionic-angular';
 import { AngularFireAuth} from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Profile } from "../../models/profile";
 import { Subscription } from "rxjs/Subscription";
 import { Camera, CameraOptions } from '@ionic-native/camera';

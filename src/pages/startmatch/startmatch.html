@@ -15,35 +15,55 @@
 
 <ion-content padding class="gray-bg">
 
-	<ion-item>
-		<ion-label stacked>Event</ion-label>
-		<ion-select interface="popover"   required [(ngModel)]="match.matchType">
-	      <ion-option *ngFor="let event of events" value="{{event}}">{{event}}</ion-option>
-	    </ion-select>
-	</ion-item>
-
-	<div *ngIf="match.matchType">
+	<div *ngIf="match.matchType != 'Team' || !match.reguNumber">
 		<ion-item>
-			<ion-label stacked>Team 1</ion-label>
-			<ion-select interface="popover" required [(ngModel)]="match.team1Key">
-	      		<ng-container *ngFor="let team of TeamRef$ | async">
-	  				<ion-option (ionSelect)="changeTeam('team1', team.$key, team.name, match.matchType)" *ngIf="team.$key != match.team2Key" value="{{team.$key}}">{{team.name}}</ion-option>
-	  			</ng-container>
-		    </ion-select>
+			<ion-label stacked>Event</ion-label>
+			<ion-select interface="popover"   required [(ngModel)]="match.matchType">
+					<ion-option *ngFor="let event of events" value="{{event}}">{{event}}</ion-option>
+				</ion-select>
 		</ion-item>
 
-		<ion-item>
-			<ion-label stacked>Team 2</ion-label>
-			<ion-select interface="popover"  required [(ngModel)]="match.team2Key">
-				<ng-container *ngFor="let team of TeamRef$ | async">
-	  				<ion-option (ionSelect)="changeTeam('team2', team.$key, team.name, match.matchType)"  *ngIf="team.$key != match.team1Key" value="{{team.$key}}">{{team.name}}</ion-option>
-	  			</ng-container>
-		    </ion-select>
-		</ion-item>
+		<div *ngIf="match.matchType">
+			<ion-item>
+				<ion-label stacked>Team 1</ion-label>
+				<ion-select interface="popover" required [(ngModel)]="match.team1Key">
+							<ng-container *ngFor="let team of TeamRef$ | async">
+							<ion-option (ionSelect)="changeTeam('team1', team.$key, team.name, match.matchType)" *ngIf="team.$key != match.team2Key" value="{{team.$key}}">{{team.name}}</ion-option>
+						</ng-container>
+					</ion-select>
+			</ion-item>
+
+			<ion-item>
+				<ion-label stacked>Team 2</ion-label>
+				<ion-select interface="popover"  required [(ngModel)]="match.team2Key">
+					<ng-container *ngFor="let team of TeamRef$ | async">
+							<ion-option (ionSelect)="changeTeam('team2', team.$key, team.name, match.matchType)"  *ngIf="team.$key != match.team1Key" value="{{team.$key}}">{{team.name}}</ion-option>
+						</ng-container>
+					</ion-select>
+			</ion-item>
+		</div>
 	</div>
 
 	<div *ngIf="match.matchType && match.team1Key && match.team2Key">
-	  	<ion-item>
+		<div *ngIf="match.matchType != 'Team' || !match.reguNumber">
+			<ion-item>
+					<ion-label stacked>Match Stage</ion-label>
+					<ion-select interface="popover"   required [(ngModel)]="match.pool">
+						<ion-option *ngFor="let poolName of pool" value="{{poolName}}">{{poolName}}</ion-option>
+					</ion-select>
+			</ion-item>
+		</div>
+
+		<div *ngIf="match.matchType == 'Team' && match.pool">
+			<ion-item>
+				<ion-label stacked>Regu Number</ion-label>
+				<ion-select interface="popover"   required [(ngModel)]="match.reguNumber">
+					<ion-option (ionSelect)="setOrderKey(reguNum)"  *ngFor="let reguNum of reguNumbers" value="{{reguNum}}">{{reguNum}}</ion-option>
+				</ion-select>
+			</ion-item>
+		</div>
+
+		<ion-item>
 			<ion-label stacked>Main Referee Name</ion-label>
 			<ion-input required type="text" [(ngModel)]="match.referee1Name"></ion-input>
 		</ion-item>
@@ -51,13 +71,6 @@
 		<ion-item>
 			<ion-label stacked>Assistant Referee Name</ion-label>
 			<ion-input required type="text" [(ngModel)]="match.referee2Name"></ion-input>
-		</ion-item>
-
-		<ion-item>
-			<ion-label stacked>Match Stage</ion-label>
-			<ion-select interface="popover"   required [(ngModel)]="match.pool">
-		      <ion-option *ngFor="let poolName of pool" value="{{poolName}}">{{poolName}}</ion-option>
-		    </ion-select>
 		</ion-item>
 
 		<ion-item>

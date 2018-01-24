@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Matchservice } from '../../providers/matchservice/matchservice';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Substitution } from "../../models/substitution";
 import { Timeout } from "../../models/timeout";
 
@@ -42,7 +42,7 @@ export class MatchcommentaryPage {
 
     // Call Provider Methods
     this.matchService.initializeMatchData(this.matchUrl);
-    this.matchService.initializeTeamsInformation();
+    this.matchService.initializeTeamsInformation(this.navParams.get('tournamentName'));
     this.matchService.getMatchSetPoints(this.matchUrl, this.matchService.match.team1Name, this.matchService.match.team2Name);
     this.matchSets = [['set1', this.matchService.set1points, this.set1subs, this.set1timeouts], 
                       ['set2', this.matchService.set2points, this.set2subs, this.set2timeouts], 

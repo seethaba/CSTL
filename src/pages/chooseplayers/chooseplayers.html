@@ -27,7 +27,7 @@
 	  </ion-list-header>
 	  <ng-container *ngFor="let matchplayer of MatchplayersRef$ | async">
 	  	<ion-item (click)="selectMatchplayer(matchplayer)" *ngIf="!matchplayer.reserve">
-	    	<h2>{{matchplayer.name}} {{matchplayer.captain ? "(C)" : ""}}</h2>
+	    	<h2>{{matchplayer.displayName}} {{matchplayer.captain ? "(C)" : ""}}</h2>
 	    	<ion-badge item-end color="secondary">{{matchplayer.jerseyNumber}}</ion-badge>
 	  	</ion-item>
 		</ng-container>
@@ -40,7 +40,7 @@
 		  </ion-list-header>
 		  <ng-container *ngFor="let matchplayer of MatchplayersRef$ | async">
 		  	<ion-item (click)="selectMatchplayer(matchplayer)" *ngIf="matchplayer.reserve">
-		    	<h2>{{matchplayer.name}} {{matchplayer.captain ? "(C)" : ""}}</h2>
+		    	<h2>{{matchplayer.displayName}} {{matchplayer.captain ? "(C)" : ""}}</h2>
 		    	<ion-badge item-end color="secondary">{{matchplayer.jerseyNumber}}</ion-badge>
 		  	</ion-item>
 			</ng-container>

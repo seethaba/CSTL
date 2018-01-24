@@ -8,7 +8,7 @@ import { FileChooser } from '@ionic-native/file-chooser';
 
 import { AngularFireModule} from 'angularfire2';
 import { AngularFireAuthModule} from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 
 import { Facebook } from '@ionic-native/facebook';
 import { InAppBrowser } from '@ionic-native/in-app-browser';

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Team } from "../../models/team";
 import { Profile } from "../../models/profile";
 import { Substitution } from "../../models/substitution";
-import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable} from 'angularfire2/database-deprecated';
 
 
 /**
@@ -45,7 +45,7 @@ export class SubstitutionsPage {
   	// Get Team Names
   	this.team1ProfileRef$ = this.afDatabase.list('profile', {
   	  query: {
-  	    orderByChild: "teamKey",
+				orderByChild: `${this.navParams.get('tournamentName')}`,
   	    equalTo: this.team1.$key
   	  }
   	})
@@ -53,7 +53,7 @@ export class SubstitutionsPage {
   	// Get Opponent Names
   	this.team2ProfileRef$ = this.afDatabase.list('profile', {
   	  query: {
-  	    orderByChild: "teamKey",
+				orderByChild: `${this.navParams.get('tournamentName')}`,
   	    equalTo: this.team2.$key
   	  }
   	})

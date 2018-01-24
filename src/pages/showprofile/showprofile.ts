@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController} from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Profile } from "../../models/profile";
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
@@ -30,7 +30,7 @@ export class ShowprofilePage {
   	this.teamName = this.navParams.get("teamName");
   	this.profileRef$ = this.afDatabase.list('profile', {
 	  query: {
-	    orderByChild: "teamKey",
+      orderByChild: `${this.navParams.get('tournamentName')}`,
 	    equalTo: this.navParams.get('teamKey')
 	  }
 	});

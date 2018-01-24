@@ -19,7 +19,7 @@
 <ion-content class="gray-bg">
 	  
 	<div class="white-bg" text-center padding-vertical>
-	    <img width=70 height=47 src="https://image.ibb.co/cFLAga/CSTL.png">
+	    <img height=47 src="{{picURL}}">
 	    <p>Toss won by {{matchService.abbrToss}}, Chosen {{matchService.match.chosen}}</p>
 	    <h5 *ngIf="matchService.match.wonBy" ion-text color="secondary">Won by <b>{{matchService.match.wonBy}}, {{matchService.match.setCount}}</b> </h5>
 	</div>

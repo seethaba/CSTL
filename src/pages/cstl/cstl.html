@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>CSTL Home</ion-title>
+    <ion-title>{{pageTitle}} Home</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,19 +18,25 @@
         <ion-row>
           <ion-col col-12 offset-sm-2 col-sm-8 offset-md-3 col-md-6 offset-lg-4 col-lg-4 offset-xl-4 col-xl-4>
             <ng-container *ngFor="let pendingMatch of pendingMatchesRef$ | async">
-              <ion-card (click)="openLiveMatch(pendingMatch)">
+              <ion-card *ngIf="pendingMatch.status != 'completed'" class="" text-center (click)="openLiveMatch(pendingMatch)">
                 <img src="https://image.ibb.co/byb1XQ/276507_sepak_takraw700_2.gif"/>
-                <div class="card-title">{{getAbbr(pendingMatch.team1Name)}} vs {{getAbbr(pendingMatch.team2Name)}}</div>
+                <div class="card-title">
+                  {{getAbbr(pendingMatch.team1Name)}} vs {{getAbbr(pendingMatch.team2Name)}}
+                </div>
+                <div margin-top class="card-subtitle">
+                  <span margin-top class="text-white"><b>{{pendingMatch.matchType}} Event {{pendingMatch.reguNumber == null ? '' : ', Regu-' + pendingMatch.reguNumber}}, {{pendingMatch.pool}}</b></span>
+                </div>
+                
               </ion-card>
             </ng-container>
     
             <a><ion-card (click)="routeToPage('MatchPage')">
-              <img src="http://s1.reutersmedia.net/resources/r/?m=02&d=20150608&t=2&i=1054602929&r=LYNXMPEB570EA&w=1280"/>
+              <img src="https://image.ibb.co/dHjw1w/sepak.jpg"/>
               <div class="card-title">Matches & Results</div>
             </ion-card></a>
     
             <a><ion-card (click)="routeToPage('NewsPage')">
-              <img src="https://saddahaq.blob.core.windows.net/multimedia/4309537-1.jpg"/>
+              <img src="https://image.ibb.co/jO5QuG/srikanth.jpg"/>
               <div class="card-title">News & Videos</div>
             </ion-card></a>
 
@@ -40,7 +46,7 @@
               </ion-card></a>
     
             <a><ion-card (click)="routeToPage('TeamlistPage')">
-              <img src="http://en.karobardaily.com/assets/images/news/f079496ec9ad3599c49be75f7e53bc05.jpg"/>
+              <img src="https://image.ibb.co/fB53gw/sakthi.jpg"/>
               <div class="card-title">Teams and Players</div>
             </ion-card></a>
     

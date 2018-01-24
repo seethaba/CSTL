@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ActionSheetController} from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Matchplayers } from "../../models/matchplayers";
 import { AddMatchplayerPage } from '../../pages/add-matchplayer/add-matchplayer';
 
@@ -23,7 +23,7 @@ export class ChooseplayersPage {
   teamName = "";
   teamUri = "";
   teamKey = "";
-  matchplayers = [] as Matchplayers[];
+  matchplayers = {};
   playerCount = 5;
 
   constructor(public navCtrl: NavController, 	
@@ -36,7 +36,8 @@ export class ChooseplayersPage {
   	this.teamKey = this.navParams.get("teamKey");
     this.playerCount = (this.navParams.get("eventType") == 'Doubles' ? 4 : 5);
 
-  	this.MatchplayersRef$ = this.afDatabase.list(`${this.teamUri}`);
+	this.MatchplayersRef$ = this.afDatabase.list(`${this.teamUri}`);
+	
   }
 
   ionViewDidLoad() {
@@ -44,7 +45,7 @@ export class ChooseplayersPage {
   }
 
   addMatchplayer() {
-  	this.navCtrl.push('AddMatchplayerPage', {matchTeamUri: this.teamUri, teamKey: this.teamKey, teamName: this.teamName});
+  	this.navCtrl.push('AddMatchplayerPage', {tournamentName: this.navParams.get('tournamentName'), matchTeamUri: this.teamUri, teamKey: this.teamKey, teamName: this.teamName});
   }
 
   viewMatchplayers(matchplayer: Matchplayers){

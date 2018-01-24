@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Setpoints } from "../../models/setpoints";
 import { Profile } from "../../models/profile";
 import { Subscription } from "rxjs/Subscription";
@@ -29,7 +29,7 @@ export class AddpointPage {
   matchUrl = "";
 
   wonMethod = ["Strike", "Service", "Drop", "Placement", "Block", "Opponent Error", "Other"]
-  errorMethod = ["Strike Error", "Drop Error", "Placement Error", "Net Cross/ Touch", "Foot Fault", "Other"]
+  errorMethod = ["Strike Error", "Service Error", "Drop Error", "Placement Error", "Receiving Error", "Net Cross/ Touch", "Foot Fault", "Others"]
 
   constructor(public navCtrl: NavController, 
   	public navParams: NavParams,
@@ -42,7 +42,7 @@ export class AddpointPage {
   	// Get Team Names
   	this.winningProfileRef$ = this.afDatabase.list('profile', {
   	  query: {
-  	    orderByChild: "teamKey",
+				orderByChild: `${this.navParams.get('tournamentName')}`,
   	    equalTo: this.navParams.get('winningTeamKey')
   	  }
   	})
@@ -50,7 +50,7 @@ export class AddpointPage {
   	// Get Opponent Names
   	this.losingProfileRef$ = this.afDatabase.list('profile', {
   	  query: {
-  	    orderByChild: "teamKey",
+				orderByChild: `${this.navParams.get('tournamentName')}`,
   	    equalTo: this.navParams.get('losingTeamKey')
   	  }
   	})
@@ -62,6 +62,14 @@ export class AddpointPage {
   createPoint(setpoint: Setpoints) {
     this.setpointsRef$.push(this.setpoint);
     this.navCtrl.pop();
+	}
+	
+	resetPoint(setpoint: Setpoints) {
+		this.setpoint.wonMethod = null;
+		this.setpoint.wonBy = null;
+		this.setpoint.assistBy = null;
+		this.setpoint.errorMethod = null;
+		this.setpoint.errorBy = null;
   }
 
 }

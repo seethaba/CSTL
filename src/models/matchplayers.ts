@@ -4,4 +4,5 @@ export interface Matchplayers {
 	jerseyNumber: number;
 	reserve: boolean;
 	name: string;
+	displayName: string;
 }

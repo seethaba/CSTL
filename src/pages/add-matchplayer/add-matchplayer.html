@@ -20,7 +20,7 @@
 		<ion-select required interface="popover" required [(ngModel)]="matchplayer.name">
       		<ng-container *ngFor="let profile of profileRef$ | async">
       			<!-- *ngIf="team.$key != match.team2Key" -->
-  				<ion-option *ngIf="(profileNames.indexOf(profile.displayName) < 0)" value="{{profile.displayName}}">{{profile.displayName}}</ion-option>
+  				<ion-option  (ionSelect)="setDisplayName(profile.displayName)" *ngIf="(profileNames.indexOf(profile.displayName) < 0)" value="{{profile.$key}}">{{profile.displayName}}</ion-option>
   			</ng-container>
 	    </ion-select>
 	</ion-item>
