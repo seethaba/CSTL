@@ -131,17 +131,19 @@
 		      <ion-icon  name="arrow-dropright" item-end></ion-icon>
 		    </button>
 
-		    <button ion-item (click)="routeToMatchDetailPage('MatchstatsindexPage')">
-		      <ion-icon name="stats" color="secondary" item-start></ion-icon>
-		      Match Statistics
-		      <ion-icon  name="arrow-dropright" item-end></ion-icon> 
-		    </button>
+				<ng-container *ngIf="matchService.match.status == 'completed'">
+					<button ion-item (click)="routeToMatchDetailPage('MatchstatsindexPage')">
+						<ion-icon name="stats" color="secondary" item-start></ion-icon>
+						Match Statistics
+						<ion-icon  name="arrow-dropright" item-end></ion-icon> 
+					</button>
 
-		    <button ion-item (click)="routeToMatchDetailPage('PlayerstatsindexPage')">
-		      <ion-icon name="contacts" color="primary" item-start></ion-icon>
-		      Player Statistics
-		      <ion-icon  name="arrow-dropright" item-end></ion-icon>
-		    </button>
+					<button ion-item (click)="routeToMatchDetailPage('PlayerstatsindexPage')">
+						<ion-icon name="contacts" color="primary" item-start></ion-icon>
+						Player Statistics
+						<ion-icon  name="arrow-dropright" item-end></ion-icon>
+					</button>
+				</ng-container>
 	    </ion-list>
     </ion-card>
 	 </div>

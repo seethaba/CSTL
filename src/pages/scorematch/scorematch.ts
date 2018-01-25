@@ -64,7 +64,9 @@ export class ScorematchPage {
       'teamName': winningTeamData.name,
       'winningTeamKey': winningTeamData.$key,
       'losingTeamKey': losingTeamData.$key,
-      'tournamentName': this.navParams.get('tournamentName')
+      'tournamentName': this.navParams.get('tournamentName'),
+      'winningTeamUrl': `${this.matchUrl}/${winningteam == "t1" ? "team1" : "team2"}`,
+      'losingTeamUrl': `${this.matchUrl}/${winningteam == "t1" ? "team2" : "team1"}`
     });
   }
 

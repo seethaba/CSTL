@@ -98,7 +98,7 @@ export class Matchservice {
           if(p.appPicUrl)
             p.photoURL = p.appPicUrl;
           else
-            p.photoURL = 'https://image.ibb.co/b6oVGw/default_user.png';
+            p.photoURL = 'https://image.ibb.co/hUx7Db/default_user.png';
           
             if(p.name)
             p.displayName = p.name
@@ -116,7 +116,7 @@ export class Matchservice {
           if(p.appPicUrl)
             p.photoURL = p.appPicUrl;
           else
-            p.photoURL = 'https://image.ibb.co/b6oVGw/default_user.png';
+            p.photoURL = 'https://image.ibb.co/hUx7Db/default_user.png';
 
           if(p.name)
             p.displayName = p.name

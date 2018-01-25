@@ -14,8 +14,8 @@
 
 
 <ion-content padding text-center>
-	<div text-center margin-vertical>
-		<img height=75 width=75 src="{{logoUrl}}">
+	<div text-center>
+		<img height=50 src="{{logoUrl}}">
 	</div>
 
 	<ng-container  *ngIf="!setpoint.wonMethod">
@@ -25,17 +25,17 @@
 		</ng-container>
 	</ng-container>
 
-	<ng-container *ngIf="setpoint.wonMethod && (!setpoint.wonBy || !(setpoint.wonMethod == 'Strike' || setpoint.wonMethod == 'Drop')) && setpoint.wonMethod != 'Opponent Error'">
+	<ng-container *ngIf="setpoint.wonMethod && (!setpoint.wonBy || !(setpoint.wonMethod == 'Strike' || setpoint.wonMethod == 'Drop' || setpoint.wonMethod == 'Placement')) && setpoint.wonMethod != 'Opponent Error'">
 		<h4 margin-vertical padding-vertical>Who won the point?</h4>
 		<ng-container *ngFor="let profile of winningProfileRef$ | async">
-			<button ion-button round margin-bottom [outline]="setpoint.wonBy != profile.$key" color='secondary' (click)="setpoint.wonBy = profile.$key">{{profile.name || profile.displayName}}</button>
+			<button ion-button round margin-bottom [outline]="setpoint.wonBy != profile.name" color='secondary' (click)="setpoint.wonBy = profile.name">{{profile.displayName || profile.name}}</button>
 		</ng-container>	
 	</ng-container>
 
 	<ng-container *ngIf="setpoint.wonBy && (setpoint.wonMethod == 'Strike' || setpoint.wonMethod == 'Drop')">
 		<h4 margin-vertical padding-vertical>Who made the assist?</h4>
 		<ng-container *ngFor="let profile of winningProfileRef$ | async">
-			<button ion-button round margin-bottom [outline]="setpoint.assistBy != profile.$key" color='light-text' (click)="setpoint.assistBy = profile.$key">{{profile.name || profile.displayName}}</button>
+			<button ion-button round margin-bottom [outline]="setpoint.assistBy != profile.name" color='danger' (click)="setpoint.assistBy = profile.name">{{profile.displayName || profile.name}}</button>
 		</ng-container>	
 	</ng-container>
 
@@ -49,7 +49,7 @@
 	<ng-container  *ngIf="setpoint.errorMethod && (setpoint.wonMethod == 'Opponent Error' || setpoint.wonMethod == 'Placement') ">
 		<h4 margin-vertical padding-vertical>Who made the error?</h4>
 		<ng-container *ngFor="let profile of losingProfileRef$ | async">
-			<button ion-button round margin-bottom [outline]="setpoint.errorBy != profile.$key" color='secondary' (click)="setpoint.errorBy = profile.$key">{{profile.name || profile.displayName}}</button>
+			<button ion-button round margin-bottom [outline]="setpoint.errorBy != profile.name" color='secondary' (click)="setpoint.errorBy = profile.name">{{profile.displayName || profile.name}}</button>
 		</ng-container>
 	</ng-container>
 

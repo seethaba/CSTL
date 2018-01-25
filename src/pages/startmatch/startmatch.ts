@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { Profile } from "../../models/profile";
 import { Team } from "../../models/team";
@@ -42,7 +42,9 @@ export class StartmatchPage {
   	public navCtrl: NavController, 
   	public navParams: NavParams,
   	private geoLocation: Geolocation,
-  	private http: Http) {
+    private http: Http,
+    public viewCtrl: ViewController
+  ) {
 
     this.matchId = this.navParams.get('matchId');
   	this.TeamRef$ = this.afDatabase.list(`${this.navParams.get('tournamentName')}/team`); 
@@ -78,7 +80,12 @@ export class StartmatchPage {
       this.matchRef$.update({"team2Name": team2.name});
     })
 
-    this.navCtrl.push("ScorematchPage", {tournamentName: this.navParams.get('tournamentName'), currentSetURL: `${this.navParams.get('tournamentName')}/matches/${match.$key}/set1`, matchURL: `${this.navParams.get('tournamentName')}/matches/${match.$key}`});
+    this.navCtrl.push("ScorematchPage", {tournamentName: this.navParams.get('tournamentName'), currentSetURL: `${this.navParams.get('tournamentName')}/matches/${match.$key}/set1`, matchURL: `${this.navParams.get('tournamentName')}/matches/${match.$key}`}).then(() => {
+      // first we find the index of the current view controller:
+      const index = this.viewCtrl.index;
+      // then we remove it from the navigation stack
+      this.navCtrl.remove(index);
+    });;
   }
 
   ionViewWillLeave() {

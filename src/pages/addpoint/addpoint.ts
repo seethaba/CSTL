@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Setpoints } from "../../models/setpoints";
 import { Profile } from "../../models/profile";
+import { Matchplayers } from "../../models/matchplayers";
 import { Subscription } from "rxjs/Subscription";
 
 /**
@@ -20,8 +21,8 @@ import { Subscription } from "rxjs/Subscription";
 export class AddpointPage {
 
   setpointsRef$: FirebaseListObservable<Setpoints[]>;
-  winningProfileRef$: FirebaseListObservable<Profile[]>;
-  losingProfileRef$: FirebaseListObservable<Profile[]>;
+  winningProfileRef$: FirebaseListObservable<Matchplayers[]>;
+  losingProfileRef$: FirebaseListObservable<Matchplayers[]>;
 
   setpoint = {} as Setpoints;
   teamName = "";
@@ -40,20 +41,10 @@ export class AddpointPage {
   	this.matchUrl = this.navParams.get('matchURL');
 
   	// Get Team Names
-  	this.winningProfileRef$ = this.afDatabase.list('profile', {
-  	  query: {
-				orderByChild: `${this.navParams.get('tournamentName')}`,
-  	    equalTo: this.navParams.get('winningTeamKey')
-  	  }
-  	})
+  	this.winningProfileRef$ = this.afDatabase.list(this.navParams.get('winningTeamUrl'));
 
   	// Get Opponent Names
-  	this.losingProfileRef$ = this.afDatabase.list('profile', {
-  	  query: {
-				orderByChild: `${this.navParams.get('tournamentName')}`,
-  	    equalTo: this.navParams.get('losingTeamKey')
-  	  }
-  	})
+  	this.losingProfileRef$ = this.afDatabase.list(this.navParams.get('losingTeamUrl'));
 
   	// Add Point URL
   	this.setpointsRef$ = this.afDatabase.list(`${this.navParams.get('addPointURL')}`);
