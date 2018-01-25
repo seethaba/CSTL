@@ -58,8 +58,19 @@ export class StartmatchPage {
 		}).catch((error) => {
 		  this.match.location = "NICM, Chennai";
 		});
-		this.pool = ["League (Pool A)", "League (Pool B)", "Quarter-Final", "Semi-Final", "Hardline", "Final", "Plate-Semi-Final", "Plate-Hardline", "Plate-Final"];
-		this.events = ["Regu", "Doubles", "Team"];
+    this.pool = ["League (Pool A)", 
+    "League (Pool B)", 
+    'League (Pool C)',
+    "Quarter-Final", 
+    "Semi-Final", 
+    "Semi-League", 
+    "Hardline", 
+    "Final", 
+    "Plate-Semi-Final", 
+    "Plate-Hardline", 
+    "Plate-Final", 
+    "Plate-League"];
+		this.events = ["Regu", "Doubles", "Team", "Doubles Plate", "School Regu", "School Doubles"];
     this.tossChoices = ["Side", "Service"];
     this.reguNumbers = [1,2,3];
     

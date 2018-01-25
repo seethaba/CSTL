@@ -34,10 +34,9 @@ export class ChooseplayersPage {
   	this.teamName = this.navParams.get("teamName");
   	this.teamUri = this.navParams.get("teamUri");
   	this.teamKey = this.navParams.get("teamKey");
-    this.playerCount = (this.navParams.get("eventType") == 'Doubles' ? 4 : 5);
-
-	this.MatchplayersRef$ = this.afDatabase.list(`${this.teamUri}`);
+	this.playerCount =  (["Doubles", "Doubles Plate", "School Doubles"].indexOf(this.navParams.get("eventType")) > -1 ? 4 : 5);
 	
+	this.MatchplayersRef$ = this.afDatabase.list(`${this.teamUri}`);
   }
 
   ionViewDidLoad() {
