@@ -15,6 +15,12 @@
 
 <ion-content class="gray-bg">
     <ion-list> 
+      <ion-card *ngIf="(galleryRef$ | async)?.length == 0">
+        <ion-card-content padding text-center>
+          <h1 margin><ion-icon name="images"></ion-icon></h1>
+          <h2>No Photos Yet. Stay Tuned!</h2>
+        </ion-card-content>
+      </ion-card>
       
       <div padding margin class="white-bg shadowed" (click)="openWebPage(galleryItem.imageUrl)" *ngFor="let galleryItem of galleryRef$ | async">
         <div>

@@ -34,7 +34,7 @@ export class RegisterPage {
   		const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);	
   		if(result){
   			this.toast.create({
-  				message: "You have successfully registered to CSTL.",
+  				message: "You have successfully registered to Sepak Monk.",
   				duration: 3000
   			}).present();
   			this.navCtrl.push("LoginPage");

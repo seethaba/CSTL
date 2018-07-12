@@ -28,6 +28,12 @@
 	<div [ngSwitch]="newsfeed">
 	  <ion-list *ngSwitchCase="'cstlnews'">
 
+			<ion-card *ngIf="(NewsRef$ | async)?.length == 0">
+				<ion-card-content padding text-center>
+					<h1 margin><ion-icon name="paper"></ion-icon></h1>
+					<h2>No News Yet. Stay Tuned!</h2>
+				</ion-card-content>
+			</ion-card>
 	  	<div (click)="news.contentType=='Video' ? openWebPage(news.content) : openModal(news)" padding margin class="white-bg shadowed" padding *ngFor="let news of NewsRef$ | async">
 				<div *ngIf="news.coverImgUrl">
 					<img src="{{news.coverImgUrl}}">
@@ -45,6 +51,12 @@
 	  </ion-list>
 
 	  <ion-list *ngSwitchCase="'gamevideos'">
+			<ion-card *ngIf="(VideosRef$ | async)?.length == 0">
+				<ion-card-content padding text-center>
+					<h1 margin><ion-icon name="logo-youtube"></ion-icon></h1>
+					<h2>No Videos Yet. Stay Tuned!</h2>
+				</ion-card-content>
+			</ion-card>
 	    <div  (click)="openWebPage(video.content)" padding margin class="white-bg shadowed" padding *ngFor="let video of VideosRef$ | async">
 				<div *ngIf="video.coverImgUrl">
 					<img src="{{video.coverImgUrl}}">

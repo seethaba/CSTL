@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cstakrawl.myapp" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cstakrawl.myapp" version="0.0.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CSTL</name>
     <description>Official app for the Chennai Sepak Takraw League</description>
     <author email="seetharaman.balaji@gmail.com" href="http://ionicframework.com/">Balaji Seetharaman</author>
@@ -100,8 +100,6 @@
     <allow-navigation href="http://192.168.0.5:8100" />
     <allow-navigation href="http://192.168.0.8:8101" />
     <allow-navigation href="http://192.168.0.8:8100" />
-    <allow-navigation href="http://192.168.1.102:8101" />
-    <allow-navigation href="http://192.168.43.37:8101" />
     <engine name="android" spec="^6.3.0" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
@@ -125,4 +123,7 @@
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
+    <allow-navigation href="http://192.168.1.9:8100" />
+    <allow-navigation href="http://169.254.125.55:8100" />
+    <allow-navigation href="http://192.168.0.102:8100" />
 </widget>

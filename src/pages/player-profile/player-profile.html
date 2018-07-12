@@ -36,17 +36,17 @@
 	    <h2 ion-text>{{teamName}}</h2>
 	  </ion-item>
 
-	  <ion-item>
+	  <ion-item *ngIf="profile.position">
 	    <ion-icon color="secondary" small name="football" item-left large ></ion-icon>
 	    <h2 ion-text>{{profile.position}}</h2>
 	  </ion-item>
 
-	  <ion-item>
+	  <ion-item *ngIf="profile.city">
 	    <ion-icon color="danger" small name="navigate" item-left large ></ion-icon>
 	    <h2 ion-text>{{profile.city}}</h2>
 	  </ion-item>
 
-	  <ion-item>
+	  <ion-item *ngIf="profile.email">
 	    <ion-icon small name="mail" item-left large ></ion-icon>
 	    <h2 ion-text>{{profile.email}}</h2>
 	  </ion-item>
