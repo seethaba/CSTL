@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cstakrawl.myapp" version="0.0.9" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cstakrawl.myapp" version="0.0.10" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Sepak Monk</name>
     <description>The world of tamilnadu sepak takraw at your fingertips</description>
     <author email="seetharaman.balaji@gmail.com" href="http://ionicframework.com/">Balaji Seetharaman</author>
@@ -103,8 +103,6 @@
     <allow-navigation href="http://192.168.1.9:8100" />
     <allow-navigation href="http://169.254.125.55:8100" />
     <allow-navigation href="http://192.168.0.102:8100" />
-    <engine name="android" spec="^6.3.0" />
-    <engine name="ios" spec="^4.4.0" />
     <plugin name="com.telerik.plugins.nativepagetransitions" spec="^0.6.5" />
     <plugin name="cordova-plugin-browsertab" spec="^0.2.0" />
     <plugin name="cordova-plugin-buildinfo" spec="^1.1.0" />
@@ -128,4 +126,6 @@
     <plugin name="onesignal-cordova-plugin" spec="^2.2.2" />
     <allow-navigation href="http://192.168.0.122:8100" />
     <allow-navigation href="http://192.168.0.123:8100" />
+    <engine name="android" spec="^6.3.0" />
+    <engine name="ios" spec="^4.4.0" />
 </widget>

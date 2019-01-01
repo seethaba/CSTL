@@ -61,6 +61,7 @@ export class StartmatchPage {
     this.pool = ["League (Pool A)", 
     "League (Pool B)", 
     'League (Pool C)',
+    'League (Pool D)',
     "Quarter-Final", 
     "Semi-Final", 
     "Semi-League", 
